@@ -1,4 +1,5 @@
 const menuToggle = document.querySelector(".menu-toggle");
+
 const nav = document.querySelector("#nav");
 
 if (menuToggle && nav) {
@@ -93,22 +94,4 @@ if (slides.length) {
 
 }
 
-const contactForm =
-  document.querySelector(".contact-form");
-
-if (contactForm) {
-
-  contactForm.addEventListener(
-    "submit",
-    (event) => {
-
-      event.preventDefault();
-
-      alert(
-        "Form submission backend not connected yet."
-      );
-
-    }
-  );
-
-}
+showSlide(0);
