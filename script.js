@@ -38,19 +38,77 @@ document.querySelectorAll(".nav a").forEach((link) => {
 
 });
 
+const slides = document.querySelectorAll(".slide");
+
+const prevSlide =
+  document.querySelector(".prev-slide");
+
+const nextSlide =
+  document.querySelector(".next-slide");
+
+let currentSlide = 0;
+
+function showSlide(index) {
+
+  if (!slides.length) return;
+
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+
+  currentSlide =
+    (index + slides.length) % slides.length;
+
+  slides[currentSlide].classList.add("active");
+
+}
+
+if (prevSlide) {
+
+  prevSlide.addEventListener("click", () => {
+
+    showSlide(currentSlide - 1);
+
+  });
+
+}
+
+if (nextSlide) {
+
+  nextSlide.addEventListener("click", () => {
+
+    showSlide(currentSlide + 1);
+
+  });
+
+}
+
+if (slides.length) {
+
+  setInterval(() => {
+
+    showSlide(currentSlide + 1);
+
+  }, 5000);
+
+}
+
 const contactForm =
   document.querySelector(".contact-form");
 
 if (contactForm) {
 
-  contactForm.addEventListener("submit", (event) => {
+  contactForm.addEventListener(
+    "submit",
+    (event) => {
 
-    event.preventDefault();
+      event.preventDefault();
 
-    alert(
-      "Form submission backend not connected yet."
-    );
+      alert(
+        "Form submission backend not connected yet."
+      );
 
-  });
+    }
+  );
 
 }
