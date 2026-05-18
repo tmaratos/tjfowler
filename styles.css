@@ -431,3 +431,45 @@ footer {
   color: #333;
   line-height: 1.75;
 }
+
+/* Preview watermark — non-index pages only (see .has-preview-watermark on body) */
+.has-preview-watermark .preview-watermark {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.has-preview-watermark .preview-watermark__text {
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", serif;
+  font-size: clamp(3.5rem, 16vw, 10rem);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  text-transform: uppercase;
+  color: #a8876a;
+  opacity: 0.14;
+  transform: rotate(-30deg);
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.has-preview-watermark main,
+.has-preview-watermark footer {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .has-preview-watermark .preview-watermark__text {
+    font-size: clamp(2.75rem, 22vw, 5.5rem);
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
+    opacity: 0.11;
+  }
+}
