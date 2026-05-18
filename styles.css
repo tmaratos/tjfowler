@@ -411,3 +411,23 @@ footer {
 .site-credit a {
   color: #7b4a2e;
 }
+
+.staff-section {
+  max-width: 980px;
+}
+
+.staff-bio {
+  margin-bottom: 2.25rem;
+}
+
+.staff-bio h2 {
+  color: #4d2f1d;
+  font-size: 1.65rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.staff-bio p {
+  color: #333;
+  line-height: 1.75;
+}
