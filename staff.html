@@ -18,6 +18,9 @@
     content="Meet the dental staff at T.J. Fowler DDS in Knoxville, Tennessee."
   />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
 </head>
@@ -124,9 +127,9 @@
 
     <section class="section staff-section">
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Ashleigh
         </h2>
 
@@ -141,9 +144,9 @@
 
       </article>
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Kristen
         </h2>
 
@@ -157,9 +160,9 @@
 
       </article>
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Lora
         </h2>
 
@@ -175,9 +178,9 @@
 
       </article>
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Sissy
         </h2>
 
@@ -196,9 +199,9 @@
 
       </article>
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Jen
         </h2>
 
@@ -211,9 +214,9 @@
 
       </article>
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Valerie
         </h2>
 
@@ -227,9 +230,9 @@
 
       </article>
 
-      <article class="staff-bio">
+      <article class="staff-card">
 
-        <h2>
+        <h2 class="staff-card__name">
           Stacy
         </h2>
 
@@ -292,19 +295,33 @@
     Call Now
   </a>
 
-  <footer>
-
-    <p>
-      © 2026 T.J. Fowler DDS. All rights reserved.
-    </p>
-
-    <p class="site-credit">
-      Website by
-      <a href="https://tristanmaratos.com">
-        Tristan Maratos
-      </a>
-    </p>
-
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <p class="site-footer__name">T.J. Fowler DDS</p>
+        <p>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
+        <p><a href="tel:8656922222">865.692.2222</a></p>
+      </div>
+      <div>
+        <p class="site-footer__heading">Quick Links</p>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
+          <a href="services.html">Services</a>
+          <a href="staff.html">Our Staff</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="site-footer__hours">
+        <p class="site-footer__heading">Office Hours</p>
+        <p><strong>Mon:</strong> 8:00 AM &ndash; 4:00 PM</p>
+        <p><strong>Tue&ndash;Thu:</strong> 8:30 AM &ndash; 5:00 PM</p>
+        <p><strong>Fri:</strong> 8:00 AM &ndash; 4:00 PM</p>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
+      <p class="site-credit">Website by <a href="https://tristanmaratos.com">Tristan Maratos</a></p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
