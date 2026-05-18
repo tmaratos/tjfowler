@@ -36,8 +36,8 @@ a {
   max-width: 1200px;
   margin: 0 auto;
 
-  padding: 0.55rem 1.2rem;
-  min-height: 64px;
+  padding: 0.5rem 1.2rem;
+  min-height: 60px;
 
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@ a {
 
 .site-logo {
   width: 210px;
-  max-height: 52px;
+  max-height: 50px;
   object-fit: contain;
   display: block;
 }
@@ -173,6 +173,20 @@ main {
 }
 
 .service-content img {
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.before-after img {
+  width: 100%;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
@@ -312,14 +326,13 @@ footer {
 @media (max-width: 900px) {
 
   .topbar {
-    padding: 0.5rem 1rem;
-    min-height: 58px;
+    padding: 0.45rem 1rem;
+    min-height: 56px;
   }
 
   .site-logo {
-    width: 170px;
-    max-height: 42px;
-    object-fit: contain;
+    width: 165px;
+    max-height: 40px;
   }
 
   .header-contact {
@@ -348,6 +361,11 @@ footer {
 
   .service-content {
     grid-template-columns: 1fr;
+  }
+
+  .before-after {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
   }
 
   .patient-cta {
