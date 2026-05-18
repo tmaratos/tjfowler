@@ -401,3 +401,13 @@ footer {
   }
 
 }
+
+.site-credit {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.site-credit a {
+  color: #7b4a2e;
+}
