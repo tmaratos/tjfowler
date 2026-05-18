@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Contact & Forms | T.J. Fowler DDS</title>
+
+  <meta
+    name="description"
+    content="Contact T.J. Fowler DDS in Knoxville, Tennessee for appointments, forms, and office information."
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="logo" href="index.html" aria-label="T.J. Fowler DDS home">
+        <span class="logo-mark">TJ</span>
+
+        <span>
+          <strong>T.J. Fowler DDS</strong>
+          <small>Restorative & Cosmetic Dental Solutions</small>
+        </span>
+      </a>
+
+      <div class="header-contact">
+        <span>
+          120 Capital Drive, Suite 102
+          <br />
+          Knoxville, TN 37922
+        </span>
+
+        <a href="tel:8656922222">865.692.2222</a>
+      </div>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open navigation"
+      >
+        ☰
+      </button>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
+      <a href="services.html">Services Offered</a>
+      <a href="staff.html">Meet Our Staff</a>
+      <a href="patient-resources.html">Patient Resources</a>
+      <a href="contact.html" class="active">Contact / Forms</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <p class="eyebrow">Appointments & Information</p>
+
+      <h1>Contact T.J. Fowler DDS</h1>
+
+      <p>
+        Schedule appointments, ask questions, or access patient forms and office
+        information.
+      </p>
+    </section>
+
+    <section class="section contact-page">
+      <div class="contact-details">
+        <h2>Office Information</h2>
+
+        <div class="contact-block">
+          <h3>Address</h3>
+
+          <p>
+            120 Capital Drive, Suite 102
+            <br />
+            Knoxville, TN 37922
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <h3>Phone</h3>
+
+          <p>
+            <a href="tel:8656922222">
+              865.692.2222
+            </a>
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <h3>Fax</h3>
+
+          <p>865.692.2272</p>
+        </div>
+
+        <div class="contact-block">
+          <h3>Office Hours</h3>
+
+          <p>
+            Monday: 8:00 AM – 4:00 PM
+            <br />
+            Tuesday – Thursday: 8:30 AM – 5:00 PM
+            <br />
+            Friday: 8:00 AM – 4:00 PM
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <h3>Directions</h3>
+
+          <p>
+            Conveniently located in West Knoxville near Kingston Pike and
+            Pellissippi Parkway.
+          </p>
+        </div>
+      </div>
+
+      <form class="contact-form">
+        <h2>Request Information</h2>
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          required
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          required
+        />
+
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+        />
+
+        <select name="subject">
+          <option value="">
+            Select Topic
+          </option>
+
+          <option value="appointment">
+            Appointment Request
+          </option>
+
+          <option value="insurance">
+            Insurance Question
+          </option>
+
+          <option value="forms">
+            Patient Forms
+          </option>
+
+          <option value="general">
+            General Question
+          </option>
+        </select>
+
+        <textarea
+          name="message"
+          placeholder="How can we help?"
+          required
+        ></textarea>
+
+        <button class="btn primary" type="submit">
+          Send Message
+        </button>
+      </form>
+    </section>
+
+    <section class="section map-section">
+      <div class="section-heading">
+        <p class="eyebrow">Location</p>
+
+        <h2>Find Our Office</h2>
+
+        <p>
+          Located in West Knoxville with convenient access for patients
+          throughout the Knoxville area.
+        </p>
+      </div>
+
+      <div class="map-placeholder">
+        <span>Google Maps Embed Area</span>
+      </div>
+    </section>
+
+    <section class="section forms-section">
+      <div class="section-heading">
+        <p class="eyebrow">Forms</p>
+
+        <h2>Patient Forms & Documents</h2>
+      </div>
+
+      <div class="resource-grid">
+        <article class="resource-card">
+          <h3>New Patient Forms</h3>
+
+          <p>
+            Download and complete paperwork before your first appointment.
+          </p>
+
+          <a class="btn secondary" href="#">
+            Download PDF
+          </a>
+        </article>
+
+        <article class="resource-card">
+          <h3>Office Policies</h3>
+
+          <p>
+            Review appointment policies, scheduling information, and office
+            expectations.
+          </p>
+
+          <a class="btn secondary" href="#">
+            View Information
+          </a>
+        </article>
+
+        <article class="resource-card">
+          <h3>Insurance Information</h3>
+
+          <p>
+            Questions about accepted insurance providers and billing assistance.
+          </p>
+
+          <a class="btn secondary" href="#">
+            Learn More
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <a class="mobile-call" href="tel:8656922222">
+    Call Now
+  </a>
+
+  <footer>
+    <p>© 2026 T.J. Fowler DDS. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
