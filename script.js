@@ -24,7 +24,7 @@ document.querySelectorAll(".nav a").forEach((link) => {
 
   link.addEventListener("click", () => {
 
-    if (window.innerWidth <= 900) {
+    if (window.innerWidth <= 900 && nav && menuToggle) {
 
       nav.classList.remove("open");
 

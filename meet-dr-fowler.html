@@ -16,7 +16,11 @@
 
   <div class="topbar">
 
-    <a class="logo" href="index.html">
+    <a
+      class="logo"
+      href="index.html"
+      aria-label="T.J. Fowler DDS home"
+    >
       <img
         src="assets/0EB8DC74-F069-48B2-AF80-22214236F35F.png"
         alt="T.J. Fowler DDS"
@@ -33,11 +37,22 @@
       <a href="tel:8656922222">865.692.2222</a>
     </div>
 
-    <button class="menu-toggle">☰</button>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
 
   </div>
 
-  <nav class="nav">
+  <nav
+    class="nav"
+    id="nav"
+    aria-label="Main navigation"
+  >
 
     <a href="index.html">Home</a>
     <a href="meet-dr-fowler.html" class="active">Meet Dr. Fowler</a>
