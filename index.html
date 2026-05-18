@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>T.J. Fowler DDS | Knoxville Restorative & Cosmetic Dentistry</title>
-  <meta name="description" content="T.J. Fowler DDS provides restorative, cosmetic, family, and pediatric dental care in Knoxville, Tennessee." />
+  <meta
+    name="description"
+    content="T.J. Fowler DDS provides restorative, cosmetic, family, and pediatric dental care in Knoxville, Tennessee."
+  />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <header class="site-header">
     <div class="topbar">
-      <a class="logo" href="#home">
+      <a class="logo" href="index.html" aria-label="T.J. Fowler DDS home">
         <span class="logo-mark">TJ</span>
         <span>
           <strong>T.J. Fowler DDS</strong>
@@ -24,42 +29,48 @@
         <a href="tel:8656922222">865.692.2222</a>
       </div>
 
-      <button class="menu-toggle" aria-label="Open navigation">☰</button>
+      <button class="menu-toggle" type="button" aria-label="Open navigation">
+        ☰
+      </button>
     </div>
 
-    <nav class="nav" id="nav">
-      <a href="#home">Home</a>
-      <a href="#doctor">Meet Dr. Fowler</a>
-      <a href="#services">Services</a>
-      <a href="#team">Our Staff</a>
-      <a href="#resources">Patient Resources</a>
-      <a href="#contact">Contact / Forms</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="index.html" class="active">Home</a>
+      <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
+      <a href="services.html">Services Offered</a>
+      <a href="staff.html">Meet Our Staff</a>
+      <a href="patient-resources.html">Patient Resources</a>
+      <a href="contact.html">Contact / Forms</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" id="home">
+    <section class="hero hero-home">
       <div class="hero-content">
         <p class="eyebrow">Knoxville, Tennessee</p>
+
         <h1>Restorative & Cosmetic Dentistry with a Personal Touch</h1>
+
         <p>
-          Modern dental care from a locally rooted Knoxville practice focused on comfort,
-          trust, and long-term patient relationships.
+          Modern dental care from a locally rooted Knoxville practice focused on
+          comfort, trust, and long-term patient relationships.
         </p>
 
         <div class="hero-actions">
-          <a class="btn primary" href="tel:8656922222">Schedule Appointment</a>
-          <a class="btn secondary" href="#doctor">Meet Dr. Fowler</a>
+          <a class="btn primary" href="contact.html">Schedule Appointment</a>
+          <a class="btn secondary" href="meet-dr-fowler.html">Meet Dr. Fowler</a>
         </div>
       </div>
 
-      <div class="hero-card">
+      <aside class="hero-card" aria-label="Office hours">
         <h2>Office Hours</h2>
+
         <p><strong>Monday:</strong> 8:00 AM – 4:00 PM</p>
         <p><strong>Tue – Thurs:</strong> 8:30 AM – 5:00 PM</p>
         <p><strong>Friday:</strong> 8:00 AM – 4:00 PM</p>
+
         <a href="tel:8656922222">Call 865.692.2222</a>
-      </div>
+      </aside>
     </section>
 
     <section class="section intro">
@@ -68,17 +79,29 @@
         <h2>Comprehensive Dental Care in West Knoxville</h2>
       </div>
 
-      <p>
-        Dr. Fowler and his staff welcome patients to a modern dental office equipped
-        with current dental technology and a team committed to patient comfort,
-        clear communication, and quality care.
-      </p>
+      <div>
+        <p>
+          Dr. Fowler and his staff welcome patients to a modern dental office
+          equipped with current dental technology and a team committed to
+          patient comfort, clear communication, and quality care.
+        </p>
+
+        <p>
+          Conveniently located in West Knoxville off of Kingston Pike near
+          Pellissippi Parkway, the office provides family, restorative, cosmetic,
+          and preventive dental care in a calm and professional setting.
+        </p>
+      </div>
     </section>
 
-    <section class="section services" id="services">
+    <section class="section services-preview">
       <div class="section-heading">
         <p class="eyebrow">Services</p>
         <h2>Dental Services Offered</h2>
+        <p>
+          From routine cleanings to restorative and cosmetic treatment, the
+          practice offers care for patients and families throughout Knoxville.
+        </p>
       </div>
 
       <div class="service-grid">
@@ -101,30 +124,14 @@
           <h3>Crowns & Bridges</h3>
           <p>Restorative solutions for damaged, weakened, or missing teeth.</p>
         </article>
+      </div>
 
-        <article>
-          <h3>Root Canal Therapy</h3>
-          <p>Treatment options focused on relieving pain and preserving teeth.</p>
-        </article>
-
-        <article>
-          <h3>Pediatric Dentistry</h3>
-          <p>Friendly care for younger patients and growing families.</p>
-        </article>
-
-        <article>
-          <h3>Gum Disease Treatment</h3>
-          <p>Routine cleanings and periodontal care for long-term oral health.</p>
-        </article>
-
-        <article>
-          <h3>Nitrous Oxide Sedation</h3>
-          <p>Comfort-focused options for patients who feel anxious about dental visits.</p>
-        </article>
+      <div class="section-actions">
+        <a class="btn secondary" href="services.html">View All Services</a>
       </div>
     </section>
 
-    <section class="section doctor" id="doctor">
+    <section class="section doctor-preview">
       <div class="image-placeholder">
         <span>Dr. Fowler Photo</span>
       </div>
@@ -132,56 +139,15 @@
       <div>
         <p class="eyebrow">Meet the Dentist</p>
         <h2>Meet Dr. T.J. Fowler</h2>
+
         <p>
-          Dr. Fowler was born and raised in Knoxville, Tennessee. His family has been
-          part of the community for over a century. He attended Knoxville Catholic High
-          School, the University of Tennessee Knoxville, and the University of Tennessee
-          College of Dentistry.
+          Dr. Fowler was born and raised in Knoxville, Tennessee, and his family
+          has been part of the community for over a century. He opened his
+          Knoxville practice in late 2007 and continues serving the dental needs
+          of the community.
         </p>
-        <p>
-          After completing a General Practice Residency at UT Hospital, Dr. Fowler
-          opened his Knoxville practice in late 2007 and continues serving the dental
-          needs of the community.
-        </p>
-      </div>
-    </section>
 
-    <section class="section team" id="team">
-      <div class="section-heading">
-        <p class="eyebrow">Our Staff</p>
-        <h2>A Team That Knows Their Patients</h2>
-      </div>
-
-      <div class="team-grid">
-        <article>
-          <h3>Ashleigh</h3>
-          <p>Dental hygienist focused on care, comfort, and patient-first service.</p>
-        </article>
-
-        <article>
-          <h3>Kristen</h3>
-          <p>Registered/certified dental assistant with years of patient care experience.</p>
-        </article>
-
-        <article>
-          <h3>Lora</h3>
-          <p>Registered Dental Assistant with expanded functions certification.</p>
-        </article>
-
-        <article>
-          <h3>Sissy</h3>
-          <p>Office manager with decades of experience in the dental field.</p>
-        </article>
-
-        <article>
-          <h3>Jen</h3>
-          <p>Dental hygiene professional who enjoys helping patients feel welcome.</p>
-        </article>
-
-        <article>
-          <h3>Valerie</h3>
-          <p>Dental hygienist who loves caring for patients and families.</p>
-        </article>
+        <a class="btn secondary" href="meet-dr-fowler.html">Read Dr. Fowler’s Bio</a>
       </div>
     </section>
 
@@ -189,44 +155,40 @@
       <div>
         <p class="eyebrow">Results</p>
         <h2>Before & After</h2>
+
         <p>
-          Showcase smile transformations with updated, high-quality images.
+          A simple look at restorative and cosmetic dental treatment results.
         </p>
       </div>
 
       <div class="before-after-card">
-        <div class="ba-box">Before Image</div>
-        <div class="ba-box">After Image</div>
+        <div class="before-card">
+          <img src="assets/IMG_6047.jpeg" alt="Before dental treatment" />
+          <span>Before</span>
+        </div>
+
+        <div class="after-card">
+          <img src="assets/IMG_6048.jpeg" alt="After dental treatment" />
+          <span>After</span>
+        </div>
       </div>
     </section>
 
-    <section class="section resources" id="resources">
-      <p class="eyebrow">Patient Resources</p>
-      <h2>Helpful Dental Information</h2>
-      <p>
-        Patient education articles, forms, appointment information, and dental care
-        resources can live here in a cleaner, easier-to-use format.
-      </p>
-    </section>
-
-    <section class="section contact" id="contact">
+    <section class="section patient-cta">
       <div>
-        <p class="eyebrow">Contact</p>
-        <h2>Schedule Your Appointment</h2>
-        <p>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
+        <p class="eyebrow">New & Returning Patients</p>
+        <h2>Ready to Schedule?</h2>
+
         <p>
-          <a href="tel:8656922222">865.692.2222</a><br />
-          <a href="tel:8656922272">865.692.2272</a>
+          Call the office or visit the contact page for appointment information,
+          directions, and patient forms.
         </p>
       </div>
 
-      <form class="contact-form">
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="tel" placeholder="Phone" />
-        <textarea placeholder="How can we help?"></textarea>
-        <button class="btn primary" type="submit">Send Message</button>
-      </form>
+      <div class="cta-actions">
+        <a class="btn primary" href="tel:8656922222">Call 865.692.2222</a>
+        <a class="btn secondary" href="contact.html">Contact / Forms</a>
+      </div>
     </section>
   </main>
 
