@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Page Not Found | T.J. Fowler DDS</title>
+  <title data-editable="page-title">Page Not Found | T.J. Fowler DDS</title>
 
   <meta
     name="description"
@@ -17,11 +17,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="has-preview-watermark">
+<body class="has-preview-watermark" data-page="404">
 
   <div class="preview-watermark" aria-hidden="true"><span class="preview-watermark__text">PREVIEW</span></div>
 
-  <header class="site-header">
+  <header class="site-header" data-section="site-header">
     <div class="topbar">
 
       <a class="logo" href="index.html" aria-label="T.J. Fowler DDS home">
@@ -33,13 +33,13 @@
       </a>
 
       <div class="header-contact">
-        <span>
+        <span data-editable="address">
           120 Capital Drive, Suite 102
           <br />
           Knoxville, TN 37922
         </span>
 
-        <a href="tel:8656922222">
+        <a href="tel:8656922222" data-editable="phone">
           865.692.2222
         </a>
       </div>
@@ -70,19 +70,19 @@
 
   </header>
 
-  <main>
+  <main data-cms-page="404">
 
-    <section class="page-hero">
+    <section class="page-hero" data-section="page-hero">
 
-      <p class="eyebrow">
+      <p class="eyebrow" data-editable="hero-eyebrow">
         404 Error
       </p>
 
-      <h1>
+      <h1 data-editable="hero-title">
         Page Not Found
       </h1>
 
-      <p>
+      <p data-editable="hero-lead">
         The page you are looking for may have been moved,
         renamed, or no longer exists.
       </p>
@@ -105,12 +105,12 @@
 
   <a class="mobile-call" href="tel:8656922222">Call Now</a>
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-section="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
-        <p class="site-footer__name">T.J. Fowler DDS</p>
-        <p>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
-        <p><a href="tel:8656922222">865.692.2222</a></p>
+        <p class="site-footer__name" data-editable="practice-name">T.J. Fowler DDS</p>
+        <p data-editable="address">120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
+        <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
       </div>
       <div>
         <p class="site-footer__heading">Quick Links</p>
@@ -134,6 +134,11 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/cms-defaults.js"></script>
+  <script src="js/cms-core.js"></script>
+  <script src="js/cms-render.js"></script>
+  <script src="js/cms-public.js"></script>
   <script src="script.js"></script>
 
 </body>

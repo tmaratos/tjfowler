@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services Offered | T.J. Fowler DDS</title>
+  <title data-editable="page-title">Services Offered | T.J. Fowler DDS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="has-preview-watermark">
+<body class="has-preview-watermark" data-page="services">
 
 <div class="preview-watermark" aria-hidden="true"><span class="preview-watermark__text">PREVIEW</span></div>
 
-<header class="site-header">
+<header class="site-header" data-section="site-header">
   <div class="topbar">
     <a class="logo" href="index.html" aria-label="T.J. Fowler DDS home">
       <img src="assets/0EB8DC74-F069-48B2-AF80-22214236F35F.png" alt="T.J. Fowler DDS" class="site-logo" />
     </a>
     <div class="header-contact">
-      <span>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</span>
-      <a href="tel:8656922222">865.692.2222</a>
+      <span data-editable="address">120 Capital Drive, Suite 102<br />Knoxville, TN 37922</span>
+      <a href="tel:8656922222" data-editable="phone">865.692.2222</a>
     </div>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
   </div>
@@ -34,14 +34,14 @@
   </nav>
 </header>
 
-<main>
-  <section class="page-hero">
-    <p class="eyebrow">Dental Services</p>
-    <h1>Services Offered</h1>
-    <p>Comprehensive restorative, cosmetic, preventive, and family dental care in Knoxville, Tennessee.</p>
+<main data-cms-page="services">
+  <section class="page-hero" data-section="page-hero">
+    <p class="eyebrow" data-editable="hero-eyebrow">Dental Services</p>
+    <h1 data-editable="hero-title">Services Offered</h1>
+    <p data-editable="hero-lead">Comprehensive restorative, cosmetic, preventive, and family dental care in Knoxville, Tennessee.</p>
   </section>
 
-  <section class="section section--flush">
+  <section class="section section--flush" data-section="services-nav">
     <nav class="services-nav services-nav--page" aria-label="Services menu">
       <a href="#general">General Dentistry</a>
       <a href="#cosmetic">Cosmetic Dentistry</a>
@@ -54,7 +54,7 @@
     </nav>
   </section>
 
-  <section class="service-panel" id="general">
+  <section class="service-panel" id="general" data-section="service-general">
     <div class="service-panel__inner">
       <p class="eyebrow">General Dentistry</p>
       <h2>General &amp; Family Dentistry</h2>
@@ -62,7 +62,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="cosmetic">
+  <section class="service-panel" id="cosmetic" data-section="service-cosmetic">
     <div class="service-panel__inner">
       <p class="eyebrow">Cosmetic Dentistry</p>
       <h2>Cosmetic Services, Whitening &amp; Veneers</h2>
@@ -70,7 +70,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="implant">
+  <section class="service-panel" id="implant" data-section="service-implant">
     <div class="service-panel__inner">
       <p class="eyebrow">Implants</p>
       <h2>Implant Dentistry</h2>
@@ -78,7 +78,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="crowns">
+  <section class="service-panel" id="crowns" data-section="service-crowns">
     <div class="service-panel__inner">
       <p class="eyebrow">Restorative Care</p>
       <h2>Crowns &amp; Bridges</h2>
@@ -86,7 +86,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="rootcanal">
+  <section class="service-panel" id="rootcanal" data-section="service-rootcanal">
     <div class="service-panel__inner">
       <p class="eyebrow">Root Canal Therapy</p>
       <h2>Root Canal Treatment</h2>
@@ -94,7 +94,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="cleanings">
+  <section class="service-panel" id="cleanings" data-section="service-cleanings">
     <div class="service-panel__inner">
       <p class="eyebrow">Preventive Dentistry</p>
       <h2>Routine Cleanings &amp; Gum Disease Treatment</h2>
@@ -102,7 +102,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="nitrous">
+  <section class="service-panel" id="nitrous" data-section="service-nitrous">
     <div class="service-panel__inner">
       <p class="eyebrow">Patient Comfort</p>
       <h2>Nitrous Oxide Sedation</h2>
@@ -110,7 +110,7 @@
     </div>
   </section>
 
-  <section class="service-panel" id="pediatric">
+  <section class="service-panel" id="pediatric" data-section="service-pediatric">
     <div class="service-panel__inner">
       <p class="eyebrow">Family Dentistry</p>
       <h2>Pediatric Dentistry</h2>
@@ -121,12 +121,12 @@
 
 <a class="mobile-call" href="tel:8656922222">Call Now</a>
 
-<footer class="site-footer">
+<footer class="site-footer" data-section="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__brand">
-      <p class="site-footer__name">T.J. Fowler DDS</p>
-      <p>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
-      <p><a href="tel:8656922222">865.692.2222</a></p>
+      <p class="site-footer__name" data-editable="practice-name">T.J. Fowler DDS</p>
+      <p data-editable="address">120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
+      <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
     </div>
     <div>
       <p class="site-footer__heading">Quick Links</p>
@@ -150,6 +150,11 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/cms-defaults.js"></script>
+<script src="js/cms-core.js"></script>
+<script src="js/cms-render.js"></script>
+<script src="js/cms-public.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

@@ -9,12 +9,13 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>
+  <title data-editable="page-title">
     Meet Our Staff | T.J. Fowler DDS
   </title>
 
   <meta
     name="description"
+    data-editable="meta-description"
     content="Meet the dental staff at T.J. Fowler DDS in Knoxville, Tennessee."
   />
 
@@ -25,11 +26,11 @@
 
 </head>
 
-<body class="has-preview-watermark">
+<body class="has-preview-watermark" data-page="staff">
 
   <div class="preview-watermark" aria-hidden="true"><span class="preview-watermark__text">PREVIEW</span></div>
 
-  <header class="site-header">
+  <header class="site-header" data-section="site-header">
 
     <div class="topbar">
 
@@ -49,13 +50,13 @@
 
       <div class="header-contact">
 
-        <span>
+        <span data-editable="address">
           120 Capital Drive, Suite 102
           <br />
           Knoxville, TN 37922
         </span>
 
-        <a href="tel:8656922222">
+        <a href="tel:8656922222" data-editable="phone">
           865.692.2222
         </a>
 
@@ -106,148 +107,169 @@
 
   </header>
 
-  <main>
+  <main data-cms-page="staff">
 
-    <section class="page-hero">
+    <section class="page-hero" data-section="page-hero">
 
-      <p class="eyebrow">
+      <p class="eyebrow" data-editable="hero-eyebrow">
         Our Team
       </p>
 
-      <h1>
+      <h1 data-editable="hero-title">
         Meet Our Staff
       </h1>
 
-      <p>
+      <p data-editable="hero-lead">
         Friendly and experienced dental professionals committed to patient
         comfort, professionalism, and quality care.
       </p>
 
     </section>
 
-    <section class="section staff-section">
+    <section class="section staff-section" data-section="staff-list">
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Ashleigh
-        </h2>
-
-        <p>
-          I am a 2007 graduate of Roane State Community College with an
-          Associate of Applied Science degree in Dental Hygiene. I am a fun and
-          caring person who always puts the care and comfort of my patients
-          first. My husband, Kevin and I spend most of our free time with our
-          young daughter Avery, and if we get a chance we like to work out or
-          catch a good movie at the cinema.
-        </p>
-
+      <article class="staff-card" data-staff-id="ashleigh" data-staff-active="true" data-staff-order="1">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">A</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Ashleigh</h2>
+            <p data-editable="staff-bio">
+              I am a 2007 graduate of Roane State Community College with an
+              Associate of Applied Science degree in Dental Hygiene. I am a fun and
+              caring person who always puts the care and comfort of my patients
+              first. My husband, Kevin and I spend most of our free time with our
+              young daughter Avery, and if we get a chance we like to work out or
+              catch a good movie at the cinema.
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Kristen
-        </h2>
-
-        <p>
-          I have worked as a registered/certified dental assistant since 2009. I
-          am currently attending Roane State Community College to pursue an
-          Associate in Applied Science degree in Dental Hygiene. I am a native
-          of Knoxville, Tennessee and in my free time I enjoy spending time with
-          my fiancé, family, and friends.
-        </p>
-
+      <article class="staff-card" data-staff-id="kristen" data-staff-active="true" data-staff-order="2">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">K</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Kristen</h2>
+            <p data-editable="staff-bio">
+              I have worked as a registered/certified dental assistant since 2009. I
+              am currently attending Roane State Community College to pursue an
+              Associate in Applied Science degree in Dental Hygiene. I am a native
+              of Knoxville, Tennessee and in my free time I enjoy spending time with
+              my fiancé, family, and friends.
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Lora
-        </h2>
-
-        <p>
-          I have been a Registered Dental Assistant since 1998 and I earned my
-          Expanded Functions Certificate for Assisting from the University of
-          Tennessee Health Science Center in Memphis, TN in 2008. I enjoy the
-          field of dentistry because it allows me to interact with all our
-          wonderful patients on a daily basis. I am a native of Oak Ridge, TN
-          and love being a part of this community. I enjoy spending time
-          outside, running, and hiking with my pet bulldog.
-        </p>
-
+      <article class="staff-card" data-staff-id="lora" data-staff-active="true" data-staff-order="3">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">L</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Lora</h2>
+            <p data-editable="staff-bio">
+              I have been a Registered Dental Assistant since 1998 and I earned my
+              Expanded Functions Certificate for Assisting from the University of
+              Tennessee Health Science Center in Memphis, TN in 2008. I enjoy the
+              field of dentistry because it allows me to interact with all our
+              wonderful patients on a daily basis. I am a native of Oak Ridge, TN
+              and love being a part of this community. I enjoy spending time
+              outside, running, and hiking with my pet bulldog.
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Sissy
-        </h2>
-
-        <p>
-          I am currently the office manager for Dr. T.J Fowler. I have spent the
-          past twenty years working in the dental field as a registered dental
-          assistant. I have certifications in Dental Radiology, Nitrous Oxide
-          Monitoring, and Coronal Polishing. Much of my spare time is spent
-          with my family or browsing the web and playing on Facebook. My
-          wonderful husband of twenty years, James, and I have a fabulous
-          daughter named Whitney. She is currently a sophomore at the University
-          of Tennessee, Knoxville and she is pursuing a Bachelor of Science
-          degree in the Biological Sciences with a concentration in Microbiology
-          and the incorporation of a pre-Dental curriculum.
-        </p>
-
+      <article class="staff-card" data-staff-id="sissy" data-staff-active="true" data-staff-order="4">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">S</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Sissy</h2>
+            <p data-editable="staff-bio">
+              I am currently the office manager for Dr. T.J Fowler. I have spent the
+              past twenty years working in the dental field as a registered dental
+              assistant. I have certifications in Dental Radiology, Nitrous Oxide
+              Monitoring, and Coronal Polishing. Much of my spare time is spent
+              with my family or browsing the web and playing on Facebook. My
+              wonderful husband of twenty years, James, and I have a fabulous
+              daughter named Whitney. She is currently a sophomore at the University
+              of Tennessee, Knoxville and she is pursuing a Bachelor of Science
+              degree in the Biological Sciences with a concentration in Microbiology
+              and the incorporation of a pre-Dental curriculum.
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Jen
-        </h2>
-
-        <p>
-          I am originally from Michigan and recently graduated from the Roane
-          State Dental Hygiene Program in 2015. I enjoy anything outdoors and
-          love my new puppy! I look forward to meeting and helping all of my
-          patients! Go Michigan State!
-        </p>
-
+      <article class="staff-card" data-staff-id="jen" data-staff-active="true" data-staff-order="5">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">J</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Jen</h2>
+            <p data-editable="staff-bio">
+              I am originally from Michigan and recently graduated from the Roane
+              State Dental Hygiene Program in 2015. I enjoy anything outdoors and
+              love my new puppy! I look forward to meeting and helping all of my
+              patients! Go Michigan State!
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Valerie
-        </h2>
-
-        <p>
-          I am a 2009 graduate of Roane State Community College with an
-          Associate of Applied Science degree in Dental Hygiene. I love being a
-          hygienist and working in the field of dentistry. My husband, Casey and
-          I have two wonderful children, Emily and Adam. I enjoy spending time
-          with my family and friends, and I am a huge movie buff!
-        </p>
-
+      <article class="staff-card" data-staff-id="valerie" data-staff-active="true" data-staff-order="6">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">V</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Valerie</h2>
+            <p data-editable="staff-bio">
+              I am a 2009 graduate of Roane State Community College with an
+              Associate of Applied Science degree in Dental Hygiene. I love being a
+              hygienist and working in the field of dentistry. My husband, Casey and
+              I have two wonderful children, Emily and Adam. I enjoy spending time
+              with my family and friends, and I am a huge movie buff!
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="staff-card">
-
-        <h2 class="staff-card__name">
-          Stacy
-        </h2>
-
-        <p>
-          Originally from Knoxville, I have been in the dental field for many
-          years and recently joined Dr. Fowler’s practice in 2015. I enjoy
-          working with my new teammates and providing our patients with the best
-          possible care.
-        </p>
-
+      <article class="staff-card" data-staff-id="stacy" data-staff-active="true" data-staff-order="7">
+        <div class="staff-card__layout">
+          <div class="staff-card__media staff-card__media--no-photo">
+            <img class="staff-card__photo" data-editable="staff-photo" src="" alt="" width="88" height="88" decoding="async" />
+            <span class="staff-card__initials" data-editable="staff-initials" aria-hidden="true">S</span>
+          </div>
+          <div class="staff-card__body">
+            <h2 class="staff-card__name" data-editable="staff-name">Stacy</h2>
+            <p data-editable="staff-bio">
+              Originally from Knoxville, I have been in the dental field for many
+              years and recently joined Dr. Fowler’s practice in 2015. I enjoy
+              working with my new teammates and providing our patients with the best
+              possible care.
+            </p>
+          </div>
+        </div>
       </article>
 
     </section>
 
-    <section class="section patient-cta">
+    <section class="section patient-cta" data-section="patient-cta">
 
       <div>
 
@@ -295,12 +317,12 @@
     Call Now
   </a>
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-section="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
-        <p class="site-footer__name">T.J. Fowler DDS</p>
-        <p>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
-        <p><a href="tel:8656922222">865.692.2222</a></p>
+        <p class="site-footer__name" data-editable="practice-name">T.J. Fowler DDS</p>
+        <p data-editable="address">120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
+        <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
       </div>
       <div>
         <p class="site-footer__heading">Quick Links</p>
@@ -324,6 +346,11 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/cms-defaults.js"></script>
+  <script src="js/cms-core.js"></script>
+  <script src="js/cms-render.js"></script>
+  <script src="js/cms-public.js"></script>
   <script src="script.js"></script>
 
 </body>

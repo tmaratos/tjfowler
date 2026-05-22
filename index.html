@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>T.J. Fowler DDS | Knoxville Restorative & Cosmetic Dentistry</title>
-  <meta name="description" content="T.J. Fowler DDS provides restorative, cosmetic, family, and preventive dental care in Knoxville, Tennessee." />
+  <title data-editable="page-title">T.J. Fowler DDS | Knoxville Restorative & Cosmetic Dentistry</title>
+  <meta name="description" data-editable="meta-description" content="T.J. Fowler DDS provides restorative, cosmetic, family, and preventive dental care in Knoxville, Tennessee." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="index">
 
-  <header class="site-header">
+  <header class="site-header" data-section="site-header">
     <div class="topbar">
       <a class="logo" href="index.html" aria-label="T.J. Fowler DDS home">
         <img src="assets/0EB8DC74-F069-48B2-AF80-22214236F35F.png" alt="T.J. Fowler DDS" class="site-logo" />
       </a>
       <div class="header-contact">
-        <span>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</span>
-        <a href="tel:8656922222">865.692.2222</a>
+        <span data-editable="address">120 Capital Drive, Suite 102<br />Knoxville, TN 37922</span>
+        <a href="tel:8656922222" data-editable="phone">865.692.2222</a>
       </div>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
     </div>
@@ -33,8 +33,8 @@
     </nav>
   </header>
 
-  <main>
-    <section class="home-hero" aria-label="T.J. Fowler DDS slideshow">
+  <main data-cms-page="index">
+    <section class="home-hero" data-section="hero" aria-label="T.J. Fowler DDS slideshow">
       <div class="hero-slider">
         <div class="slide active">
           <img src="assets/slide0.jpg" alt="Dental office slideshow image 1" />
@@ -58,9 +58,9 @@
         <button class="slider-btn next-slide" type="button" aria-label="Next slide">&#8250;</button>
       </div>
       <div class="hero-overlay">
-        <p class="eyebrow">Knoxville, Tennessee</p>
-        <h1>Restorative &amp; Cosmetic Dentistry with a Personal Touch</h1>
-        <p>Modern dental care from a locally rooted Knoxville practice focused on comfort, trust, and long-term patient relationships.</p>
+        <p class="eyebrow" data-editable="hero-eyebrow">Knoxville, Tennessee</p>
+        <h1 data-editable="hero-title">Restorative &amp; Cosmetic Dentistry with a Personal Touch</h1>
+        <p data-editable="hero-lead">Modern dental care from a locally rooted Knoxville practice focused on comfort, trust, and long-term patient relationships.</p>
         <div class="cta-actions">
           <a class="btn primary" href="contact.html">Schedule Appointment</a>
           <a class="btn secondary" href="meet-dr-fowler.html">Meet Dr. Fowler</a>
@@ -68,7 +68,7 @@
       </div>
     </section>
 
-    <section class="section section--tight">
+    <section class="section section--tight" data-section="trust-cards">
       <div class="trust-grid">
         <article class="trust-card">
           <span class="trust-card__label">Established</span>
@@ -89,15 +89,15 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" data-section="welcome">
       <div class="service-content">
         <div>
-          <p class="eyebrow">Welcome</p>
-          <h2>Comprehensive Dental Care in West Knoxville</h2>
+          <p class="eyebrow" data-editable="welcome-eyebrow">Welcome</p>
+          <h2 data-editable="welcome-title">Comprehensive Dental Care in West Knoxville</h2>
           <p>Dr. Fowler and his staff welcome patients to a modern dental office focused on comfort, professionalism, and long-term oral health.</p>
           <p>Conveniently located in West Knoxville near Kingston Pike and Pellissippi Parkway, the office provides family, restorative, cosmetic, and preventive dental care.</p>
         </div>
-        <div class="office-hours-card">
+        <div class="office-hours-card" data-editable="office-hours">
           <h3>Office Hours</h3>
           <p><strong>Monday:</strong> 8:00 AM &ndash; 4:00 PM</p>
           <p><strong>Tuesday &ndash; Thursday:</strong> 8:30 AM &ndash; 5:00 PM</p>
@@ -107,10 +107,10 @@
       </div>
     </section>
 
-    <section class="section section--alt">
+    <section class="section section--alt" data-section="services-preview">
       <div class="section-header">
-        <p class="eyebrow">Dental Services</p>
-        <h2>Services Offered</h2>
+        <p class="eyebrow" data-editable="services-preview-eyebrow">Dental Services</p>
+        <h2 data-editable="services-preview-title">Services Offered</h2>
         <p class="section-lead">Comprehensive care tailored to your smile, comfort, and long-term oral health.</p>
       </div>
       <div class="services-nav">
@@ -125,7 +125,7 @@
       </div>
     </section>
 
-    <section class="showcase-section">
+    <section class="showcase-section" data-section="before-after">
       <div class="section-header">
         <p class="eyebrow">Smile Results</p>
         <h2>Before &amp; After</h2>
@@ -143,7 +143,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" data-section="patient-cta">
       <div class="patient-cta">
         <div>
           <p class="eyebrow">Appointments</p>
@@ -160,12 +160,12 @@
 
   <a class="mobile-call" href="tel:8656922222">Call Now</a>
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-section="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
-        <p class="site-footer__name">T.J. Fowler DDS</p>
-        <p>120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
-        <p><a href="tel:8656922222">865.692.2222</a></p>
+        <p class="site-footer__name" data-editable="practice-name">T.J. Fowler DDS</p>
+        <p data-editable="address">120 Capital Drive, Suite 102<br />Knoxville, TN 37922</p>
+        <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
       </div>
       <div>
         <p class="site-footer__heading">Quick Links</p>
@@ -189,6 +189,11 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/cms-defaults.js"></script>
+  <script src="js/cms-core.js"></script>
+  <script src="js/cms-render.js"></script>
+  <script src="js/cms-public.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

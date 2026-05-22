@@ -681,6 +681,68 @@ h4 {
   font-weight: 600;
 }
 
+.staff-card__layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.staff-card__media {
+  flex-shrink: 0;
+  width: 5.5rem;
+  height: 5.5rem;
+  position: relative;
+}
+
+.staff-card__photo {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gray-clinical);
+}
+
+.staff-card__photo:not([src]),
+.staff-card__photo[src=""],
+.staff-card__media--no-photo .staff-card__photo {
+  display: none;
+}
+
+.staff-card__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--blue-primary), var(--blue-soft));
+  color: var(--white);
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 2px solid var(--gray-clinical);
+  box-shadow: var(--shadow-sm);
+}
+
+.staff-card__media--has-photo .staff-card__initials,
+.staff-card__media:has(.staff-card__photo[src]:not([src=""])) .staff-card__initials {
+  display: none;
+}
+
+.staff-card__media--has-photo .staff-card__photo,
+.staff-card__media:has(.staff-card__photo[src]:not([src=""])) .staff-card__photo {
+  display: block;
+}
+
+@media (max-width: 520px) {
+  .staff-card__layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 .staff-card p,
 .staff-bio p {
   color: var(--text-muted);
@@ -1239,6 +1301,17 @@ footer:not(.site-footer) .site-credit a {
   .site-footer__bottom {
     padding-bottom: 2rem;
   }
+}
+
+/* CMS hydration (optional Supabase content) */
+main[data-cms-page].cms-main--loading {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+main[data-cms-page].cms-main--ready {
+  opacity: 1;
+  transition: opacity 0.35s ease;
 }
 
 @media (max-width: 520px) {

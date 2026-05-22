@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Admin | T.J. Fowler DDS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <div id="login-view" class="admin-login">
+    <h1>T.J. Fowler DDS</h1>
+    <p>Sign in to edit website content.</p>
+    <div id="login-alert"></div>
+    <form id="login-form">
+      <div class="admin-field">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" required autocomplete="username" />
+      </div>
+      <div class="admin-field">
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="admin-btn admin-btn--primary" style="width:100%;margin-top:0.5rem">Sign In</button>
+    </form>
+    <p style="margin-top:1.25rem;font-size:0.85rem;color:#5d6b75">
+      First time? Ask your web developer to run <code>supabase/schema.sql</code> and create your login in Supabase.
+    </p>
+  </div>
+
+  <div id="app-view" class="admin-app">
+    <aside class="admin-sidebar">
+      <h2>Site Editor</h2>
+      <nav class="admin-nav" id="page-nav"></nav>
+      <div class="admin-sidebar-actions">
+        <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="btn-site-settings">Site Settings</button>
+        <button type="button" class="admin-btn admin-btn--secondary admin-btn--sm" id="btn-seed">Import Site Content</button>
+        <a href="index.html" class="admin-btn admin-btn--ghost admin-btn--sm" target="_blank" rel="noopener">View Website</a>
+        <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="btn-logout">Sign Out</button>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+      <div id="global-alert"></div>
+
+      <div id="page-editor">
+        <div class="admin-toolbar">
+          <h1 id="editor-title">Edit Page</h1>
+          <div class="admin-toolbar-actions">
+            <select id="add-section-type" class="admin-field" style="margin:0;width:auto">
+              <option value="">Add section…</option>
+            </select>
+            <button type="button" class="admin-btn admin-btn--secondary" id="btn-add-section">Add Section</button>
+            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-page">Save Page</button>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-field">
+            <label for="page-title">Browser tab title</label>
+            <input id="page-title" type="text" />
+          </div>
+          <div class="admin-field">
+            <label for="page-meta">Meta description (SEO)</label>
+            <textarea id="page-meta" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div id="sections-list"></div>
+      </div>
+
+      <div id="settings-editor" hidden>
+        <div class="admin-toolbar">
+          <h1>Site Settings</h1>
+          <div class="admin-toolbar-actions">
+            <button type="button" class="admin-btn admin-btn--ghost" id="btn-back-pages">Back to Pages</button>
+            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-settings">Save Settings</button>
+          </div>
+        </div>
+        <div class="admin-panel admin-settings-grid" id="settings-form"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/cms-defaults.js"></script>
+  <script src="js/cms-core.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
