@@ -112,7 +112,11 @@ create policy "public_read_site_images" on public.site_images for select to anon
 create policy "admin_read_services" on public.services for select to authenticated using (true);
 create policy "admin_read_staff" on public.staff_members for select to authenticated using (true);
 create policy "admin_read_submissions" on public.contact_submissions for select to authenticated using (true);
-create policy "admin_read_admin_users" on public.admin_users for select to authenticated using (auth.uid() = user_id);
+create policy "admin_read_own_admin_row" on public.admin_users for select to authenticated
+  using (
+    user_id = auth.uid()
+    or lower(trim(email)) = lower(trim(coalesce(auth.jwt() ->> 'email', '')))
+  );
 
 -- Contact form: public insert only
 create policy "public_insert_contact" on public.contact_submissions
