@@ -18,6 +18,13 @@
   let currentUser = null;
   let panelsLoaded = false;
   let bootstrapping = true;
+  const RECOVERY_PENDING_KEY = "admin_password_recovery_pending";
+  /** Blocks dashboard until user completes Set New Password after email reset link */
+  let passwordRecoveryMode = false;
+
+  function isRecoveryPending() {
+    return passwordRecoveryMode || sessionStorage.getItem(RECOVERY_PENDING_KEY) === "1";
+  }
 
   let settingsCache = null;
   let sectionRowsBySlug = {};
@@ -95,11 +102,36 @@
     return "https://tmaratos.github.io/tjfowler/admin.html";
   }
 
-  function isRecoveryHash() {
+  function isRecoveryInUrl() {
     const hash = window.location.hash.replace(/^#/, "");
-    if (!hash) return false;
-    const params = new URLSearchParams(hash);
-    return params.get("type") === "recovery" || hash.includes("type=recovery");
+    if (hash) {
+      const params = new URLSearchParams(hash);
+      if (params.get("type") === "recovery") return true;
+      if (hash.includes("type=recovery")) return true;
+    }
+    const search = new URLSearchParams(window.location.search);
+    if (search.get("type") === "recovery") return true;
+    return false;
+  }
+
+  function enterPasswordRecoveryMode() {
+    passwordRecoveryMode = true;
+    sessionStorage.setItem(RECOVERY_PENDING_KEY, "1");
+    panelsLoaded = false;
+    const form = $("reset-form");
+    if (form) form.hidden = false;
+    if ($("reset-success")) $("reset-success").hidden = true;
+    showView("reset");
+  }
+
+  function exitPasswordRecoveryMode() {
+    passwordRecoveryMode = false;
+    sessionStorage.removeItem(RECOVERY_PENDING_KEY);
+  }
+
+  function clearRecoveryFromUrl() {
+    const path = window.location.pathname + window.location.search;
+    history.replaceState(null, "", path);
   }
 
   function logSupabaseError(label, error) {
@@ -197,7 +229,8 @@
       showView("login");
       return false;
     }
-    if (isRecoveryHash()) {
+    if (isRecoveryInUrl()) enterPasswordRecoveryMode();
+    if (isRecoveryPending()) {
       showView("reset");
       return false;
     }
@@ -749,8 +782,16 @@
   $("reset-form")?.addEventListener("submit", async (e) => {
     e.preventDefault();
     sb = getClient();
-    const pw = $("reset-password").value;
-    const confirm = $("reset-password-confirm").value;
+    if (!sb) {
+      showAlert($("reset-alert"), "Website connection is not configured.", "error");
+      return;
+    }
+    const pw = ($("reset-password")?.value || "").trim();
+    const confirm = ($("reset-password-confirm")?.value || "").trim();
+    if (!pw) {
+      showAlert($("reset-alert"), "Password must be at least 8 characters.", "error");
+      return;
+    }
     if (pw !== confirm) {
       showAlert($("reset-alert"), "Passwords do not match.", "error");
       return;
@@ -759,22 +800,54 @@
       showAlert($("reset-alert"), "Password must be at least 8 characters.", "error");
       return;
     }
+    const btn = $("btn-update-password");
+    if (btn) btn.disabled = true;
+    showAlert($("reset-alert"), "Updating password…", "info");
     const { error } = await sb.auth.updateUser({ password: pw });
+    if (btn) btn.disabled = false;
     if (error) {
-      showAlert($("reset-alert"), error.message, "error");
+      console.error("[admin] password update failed:", error);
+      showAlert($("reset-alert"), "Unable to update password. Please request a new reset link.", "error");
       return;
     }
-    history.replaceState(null, "", window.location.pathname + window.location.search);
-    await sb.auth.signOut();
-    panelsLoaded = false;
-    showAlert($("reset-alert"), "Password updated. Please sign in again.", "success");
-    setTimeout(() => showView("login"), 1500);
+    exitPasswordRecoveryMode();
+    clearRecoveryFromUrl();
+    showAlert($("reset-alert"), "", "");
+    if ($("reset-form")) $("reset-form").hidden = true;
+    if ($("reset-success")) $("reset-success").hidden = false;
+    $("reset-password").value = "";
+    $("reset-password-confirm").value = "";
   });
 
-  async function logout() {
+  $("btn-continue-dashboard")?.addEventListener("click", async () => {
+    exitPasswordRecoveryMode();
+    panelsLoaded = false;
+    const ok = await requireSession();
+    if (!ok && !passwordRecoveryMode) {
+      showAlert($("reset-alert"), "Unable to open the dashboard. Please sign in again.", "error");
+      if ($("reset-form")) $("reset-form").hidden = false;
+      if ($("reset-success")) $("reset-success").hidden = true;
+    }
+  });
+
+  $("btn-back-login-from-reset")?.addEventListener("click", async () => {
+    exitPasswordRecoveryMode();
+    clearRecoveryFromUrl();
     if (sb) await sb.auth.signOut();
     currentUser = null;
     panelsLoaded = false;
+    if ($("reset-form")) $("reset-form").hidden = false;
+    if ($("reset-success")) $("reset-success").hidden = true;
+    showView("login");
+  });
+
+  async function logout() {
+    exitPasswordRecoveryMode();
+    if (sb) await sb.auth.signOut();
+    currentUser = null;
+    panelsLoaded = false;
+    if ($("reset-form")) $("reset-form").hidden = false;
+    if ($("reset-success")) $("reset-success").hidden = true;
     showView("login");
   }
 
@@ -1230,22 +1303,34 @@
     showAlert($("login-alert"), "Website connection is not configured.", "error");
     showView("login");
   } else {
+    if (isRecoveryInUrl()) {
+      enterPasswordRecoveryMode();
+    }
+
     sb.auth.onAuthStateChange((event) => {
-      if (bootstrapping) return;
       if (event === "PASSWORD_RECOVERY") {
+        enterPasswordRecoveryMode();
+        return;
+      }
+      if (isRecoveryPending()) {
         showView("reset");
         return;
       }
+      if (bootstrapping) return;
       if (event === "SIGNED_OUT") {
         currentUser = null;
         panelsLoaded = false;
         showView("login");
         return;
       }
-      requireSession();
+      if (event === "SIGNED_IN" || event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED") {
+        requireSession();
+      }
     });
+
     requireSession().finally(() => {
       bootstrapping = false;
+      if (isRecoveryPending()) showView("reset");
     });
   }
 })();

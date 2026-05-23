@@ -303,6 +303,24 @@
   text-align: center;
 }
 
+.admin-reset-help {
+  color: #5d6b75;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.admin-reset-success {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #e8f5ec;
+  border-radius: 8px;
+  color: #2d5c40;
+}
+
+.admin-reset-success p {
+  margin: 0 0 1rem;
+}
+
 .admin-link-btn {
   background: none;
   border: none;

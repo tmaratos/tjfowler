@@ -50,7 +50,7 @@
 
   <div id="reset-view" class="admin-login" hidden>
     <h1>Set New Password</h1>
-    <p>Choose a new password for your admin account.</p>
+    <p class="admin-reset-help">Enter a new password for your website admin account.</p>
     <div id="reset-alert" class="admin-alert" hidden></div>
     <form id="reset-form">
       <div class="admin-field">
@@ -58,11 +58,18 @@
         <input id="reset-password" type="password" required minlength="8" autocomplete="new-password" />
       </div>
       <div class="admin-field">
-        <label for="reset-password-confirm">Confirm password</label>
+        <label for="reset-password-confirm">Confirm new password</label>
         <input id="reset-password-confirm" type="password" required minlength="8" autocomplete="new-password" />
       </div>
-      <button type="submit" class="admin-btn admin-btn--primary admin-btn--block">Update Password</button>
+      <button type="submit" class="admin-btn admin-btn--primary admin-btn--block" id="btn-update-password">Update Password</button>
     </form>
+    <div id="reset-success" class="admin-reset-success" hidden>
+      <p>Your password has been updated. You can now continue to the admin dashboard.</p>
+      <button type="button" class="admin-btn admin-btn--primary admin-btn--block" id="btn-continue-dashboard">Continue to Dashboard</button>
+    </div>
+    <p class="admin-login__links">
+      <button type="button" class="admin-link-btn" id="btn-back-login-from-reset">Back to Sign In</button>
+    </p>
   </div>
 
   <div id="denied-view" class="admin-login" hidden>
