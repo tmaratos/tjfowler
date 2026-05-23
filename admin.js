@@ -105,66 +105,204 @@
     return params.get("type") === "recovery" || hash.includes("type=recovery");
   }
 
-  async function isAdminUser(user) {
-    if (!user || !sb) return false;
-    const { data, error } = await sb.from("admin_users").select("user_id").eq("user_id", user.id).maybeSingle();
-    if (error) console.warn("[admin] admin_users", error);
-    return Boolean(data);
+  function logSupabaseError(label, error) {
+    console.error(`[admin] ${label}:`, {
+      message: error?.message,
+      code: error?.code,
+      details: error?.details,
+      hint: error?.hint,
+      error,
+    });
   }
 
-  async function resolveSession() {
+  function formatSupabaseError(error) {
+    if (!error) return null;
+    if (typeof error === "string") return error;
+    const parts = [];
+    if (error.message) parts.push(error.message);
+    if (error.code) parts.push(`code: ${error.code}`);
+    if (error.details) parts.push(`details: ${error.details}`);
+    if (error.hint) parts.push(`hint: ${error.hint}`);
+    return parts.length ? parts.join("\n") : String(error);
+  }
+
+  function isRlsOrPermissionError(error) {
+    if (!error) return false;
+    const msg = `${error.message || ""} ${error.details || ""}`.toLowerCase();
+    return error.code === "42501" || /row-level security|permission denied|insufficient privilege/.test(msg);
+  }
+
+  function showDeniedDebug(info) {
+    const debugBlock = document.querySelector(".admin-denied-debug");
+    const emailEl = document.getElementById("denied-email");
+    const userIdEl = document.getElementById("denied-user-id");
+    const errorEl = document.getElementById("denied-error");
+    const rowFoundEl = document.getElementById("denied-row-found");
+    const errorText = info?.error || "(none)";
+
+    if (emailEl) emailEl.textContent = info?.email || "(none)";
+    if (userIdEl) userIdEl.textContent = info?.userId || "(none)";
+    if (rowFoundEl) rowFoundEl.textContent = info?.rowFound ? "yes" : "no";
+    if (errorEl) errorEl.textContent = errorText;
+    if (debugBlock) {
+      debugBlock.hidden = false;
+      debugBlock.style.display = "";
+    }
+    showView("denied");
+  }
+
+  /** @returns {Promise<{ ok: boolean, user: object|null, email: string|null, userId: string|null, error: string|null, rowFound: boolean }>} */
+  async function checkAdminAccess() {
+    const denied = { ok: false, user: null, email: null, userId: null, error: null, rowFound: false };
+    if (!sb) {
+      denied.error = "Supabase client not available";
+      return denied;
+    }
+
+    const { data: { user }, error: authError } = await sb.auth.getUser();
+    if (authError) {
+      logSupabaseError("getUser", authError);
+      denied.error = formatSupabaseError(authError);
+      return denied;
+    }
+    if (!user) {
+      denied.error = "Not signed in (getUser returned no user)";
+      return denied;
+    }
+
+    denied.user = user;
+    denied.userId = user.id;
+    console.log("[admin] user.id:", user.id, "user.email:", user.email);
+
+    const email = user.email?.trim().toLowerCase() || null;
+    denied.email = email;
+
+    let lastError = null;
+
+    let { data, error } = await sb.from("admin_users").select("*").eq("user_id", user.id).maybeSingle();
+    if (error) {
+      logSupabaseError("admin_users user_id lookup", error);
+      lastError = error;
+      if (isRlsOrPermissionError(error)) {
+        denied.error = formatSupabaseError(error);
+        return denied;
+      }
+    } else if (data) {
+      denied.rowFound = true;
+      denied.ok = true;
+      return denied;
+    }
+
+    if (email) {
+      ({ data, error } = await sb.from("admin_users").select("*").eq("email", email).maybeSingle());
+      if (error) {
+        logSupabaseError("admin_users email eq lookup", error);
+        lastError = error;
+        if (isRlsOrPermissionError(error)) {
+          denied.error = formatSupabaseError(error);
+          return denied;
+        }
+      } else if (data) {
+        denied.rowFound = true;
+        denied.ok = true;
+        return denied;
+      }
+
+      ({ data, error } = await sb.from("admin_users").select("*").ilike("email", email).maybeSingle());
+      if (error) {
+        logSupabaseError("admin_users email ilike lookup", error);
+        lastError = error;
+        if (isRlsOrPermissionError(error)) {
+          denied.error = formatSupabaseError(error);
+          return denied;
+        }
+      } else if (data) {
+        denied.rowFound = true;
+        denied.ok = true;
+        return denied;
+      }
+    }
+
+    if (lastError) {
+      denied.error = formatSupabaseError(lastError);
+      return denied;
+    }
+
+    if (!email) {
+      denied.error = "Authenticated user has no email and no admin_users row matched user_id";
+      return denied;
+    }
+
+    denied.error =
+      "No matching row in admin_users (user_id or email). Ensure admin_users.user_id equals your auth user id, or run supabase/admin_users_rls_fix.sql.";
+    return denied;
+  }
+
+  async function requireSession() {
     sb = getClient();
     if (!sb) {
       showAlert(loginAlert, "Supabase is not configured.", "error");
       showView("login");
-      return;
+      return false;
     }
 
     if (isRecoveryHash()) {
       showView("reset");
-      return;
+      return false;
     }
 
-    const { data } = await sb.auth.getSession();
-    currentUser = data.session?.user || null;
+    const { data: { user }, error: authError } = await sb.auth.getUser();
+    if (authError) {
+      logSupabaseError("getUser", authError);
+      showAlert(loginAlert, formatSupabaseError(authError), "error");
+      showView("login");
+      return false;
+    }
+
+    currentUser = user || null;
     if (!currentUser) {
       showView("login");
-      return;
+      return false;
     }
 
-    if (!(await isAdminUser(currentUser))) {
-      showView("denied");
-      return;
+    const access = await checkAdminAccess();
+    if (!access.ok) {
+      showDeniedDebug(access);
+      return false;
     }
 
+    currentUser = access.user;
     showView("app");
     if (!panelsLoaded) {
       panelsLoaded = true;
       await loadAllPanels();
       window.dispatchEvent(new Event("admin-panels-load"));
     }
+    return true;
+  }
+
+  async function resolveSession() {
+    await requireSession();
   }
 
   loginForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     sb = getClient();
+    if (!sb) {
+      showAlert(loginAlert, "Supabase is not configured.", "error");
+      return;
+    }
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value;
     showAlert(loginAlert, "Signing in…", "info");
-    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    const { error } = await sb.auth.signInWithPassword({ email, password });
     if (error) {
       showAlert(loginAlert, error.message, "error");
       return;
     }
-    currentUser = data.user;
-    if (!(await isAdminUser(currentUser))) {
-      showAlert(loginAlert, "", "");
-      showView("denied");
-      return;
-    }
     showAlert(loginAlert, "", "");
     panelsLoaded = false;
-    await resolveSession();
+    await requireSession();
   });
 
   document.getElementById("btn-show-forgot")?.addEventListener("click", () => {

@@ -69,6 +69,16 @@
     <h1>Access Denied</h1>
     <p>You are signed in, but this account is not authorized to edit the website.</p>
     <div id="denied-alert" class="admin-alert admin-alert--error">Contact the site administrator to be added to <code>admin_users</code>.</div>
+    <dl class="admin-denied-debug" id="denied-debug">
+      <dt>Logged-in email</dt>
+      <dd id="denied-email">—</dd>
+      <dt>Logged-in user id</dt>
+      <dd id="denied-user-id">—</dd>
+      <dt>admin_users row found</dt>
+      <dd id="denied-row-found">—</dd>
+      <dt>Query error</dt>
+      <dd><pre id="denied-error" class="admin-denied-error">—</pre></dd>
+    </dl>
     <button type="button" class="admin-btn admin-btn--ghost admin-btn--block" id="btn-denied-logout">Sign Out</button>
   </div>
 
