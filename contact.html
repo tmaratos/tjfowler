@@ -10,9 +10,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="has-preview-watermark" data-page="contact">
-
-<div class="preview-watermark" aria-hidden="true"><span class="preview-watermark__text">PREVIEW</span></div>
+<body data-page="contact">
 
 <header class="site-header" data-section="site-header">
 
@@ -56,12 +54,12 @@
     aria-label="Main navigation"
   >
 
-    <a href="index.html">Home</a>
-    <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
-    <a href="services.html">Services Offered</a>
-    <a href="staff.html">Meet Our Staff</a>
-    <a href="patient-resources.html">Dentistry & You!!!</a>
-    <a href="contact.html" class="active">Contact</a>
+    <a href="index.html" data-nav="home" data-link-key="nav-home">Home</a>
+    <a href="meet-dr-fowler.html" data-nav="meet-dr-fowler" data-link-key="nav-meet-dr">Meet Dr. Fowler</a>
+    <a href="services.html" data-nav="services" data-link-key="nav-services">Services Offered</a>
+    <a href="staff.html" data-nav="staff" data-link-key="nav-staff">Meet Our Staff</a>
+    <a href="patient-resources.html" data-nav="patient-resources" data-link-key="nav-patient-resources">Dentistry & You!!!</a>
+    <a href="contact.html" class="active" data-nav="contact" data-link-key="nav-contact">Contact</a>
 
   </nav>
 
@@ -122,9 +120,52 @@
 
   </section>
 
+  <section class="section contact-form-section" data-section="contact-form">
+    <div class="contact-form-wrap">
+      <h2 data-editable="contact-form-heading" data-contact-label="form_heading">Send a Message</h2>
+      <p class="contact-form__notice" data-editable="contact-form-notice">
+        Please do not include medical, dental, insurance, or other sensitive health information in this form.
+        For clinical questions, call the office directly.
+      </p>
+      <div id="contact-form-status" class="contact-form__status" hidden></div>
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="contact-form__grid">
+          <div class="contact-field">
+            <label for="contact-name"><span data-contact-label="label_name">Name</span> <span aria-hidden="true">*</span></label>
+            <input id="contact-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="contact-field">
+            <label for="contact-email"><span data-contact-label="label_email">Email</span> <span aria-hidden="true">*</span></label>
+            <input id="contact-email" name="email" type="email" required autocomplete="email" />
+          </div>
+          <div class="contact-field">
+            <label for="contact-phone"><span data-contact-label="label_phone">Phone</span></label>
+            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+          <div class="contact-field">
+            <label for="contact-time"><span data-contact-label="label_preferred_time">Preferred time</span></label>
+            <input id="contact-time" name="preferred_time" type="text" placeholder="e.g. mornings, Tuesday afternoon" />
+          </div>
+        </div>
+        <div class="contact-field">
+          <label for="contact-message"><span data-contact-label="label_message">Message</span> <span aria-hidden="true">*</span></label>
+          <textarea id="contact-message" name="message" rows="5" required></textarea>
+        </div>
+        <div class="contact-form__turnstile" aria-label="Security verification (optional)">
+          <!-- Cloudflare Turnstile: add site key and uncomment when ready
+          <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY"></div>
+          <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+          -->
+          <p class="contact-form__turnstile-placeholder" data-contact-label="turnstile_placeholder">Security check (Turnstile) — enable when site key is configured.</p>
+        </div>
+        <button type="submit" class="btn primary" data-contact-label="submit_button">Send Message</button>
+      </form>
+    </div>
+  </section>
+
 </main>
 
-<a class="mobile-call" href="tel:8656922222">Call Now</a>
+<a class="mobile-call" href="tel:8656922222" data-editable="mobile-call-label"><span data-editable="mobile-call-label">Call Now</span></a>
 
 <footer class="site-footer" data-section="site-footer">
   <div class="site-footer__inner">
@@ -134,32 +175,33 @@
       <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
     </div>
     <div>
-      <p class="site-footer__heading">Quick Links</p>
+      <p class="site-footer__heading" data-editable="footer-quick-links-heading">Quick Links</p>
       <nav class="site-footer__links" aria-label="Footer navigation">
-        <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
-        <a href="services.html">Services</a>
-        <a href="staff.html">Our Staff</a>
-        <a href="contact.html">Contact</a>
+        <a href="meet-dr-fowler.html" data-footer-link="meet-dr-fowler" data-link-key="nav-meet-dr">Meet Dr. Fowler</a>
+        <a href="services.html" data-footer-link="services" data-link-key="nav-services">Services</a>
+        <a href="staff.html" data-footer-link="staff" data-link-key="nav-staff">Our Staff</a>
+        <a href="contact.html" data-footer-link="contact" data-link-key="nav-contact">Contact</a>
       </nav>
     </div>
-    <div class="site-footer__hours">
-      <p class="site-footer__heading">Office Hours</p>
+    <div class="site-footer__hours" data-editable="footer-hours">
+      <p class="site-footer__heading" data-editable="footer-hours-heading">Office Hours</p>
       <p><strong>Mon:</strong> 8:00 AM &ndash; 4:00 PM</p>
       <p><strong>Tue&ndash;Thu:</strong> 8:30 AM &ndash; 5:00 PM</p>
       <p><strong>Fri:</strong> 8:00 AM &ndash; 4:00 PM</p>
     </div>
   </div>
   <div class="site-footer__bottom">
-    <p>&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
-    <p class="site-credit">Website by <a href="https://tristanmaratos.com">Tristan Maratos</a></p>
+    <p data-editable="footer-copyright">&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
+    <p class="site-credit">Website by <a href="https://tristanmaratos.com" data-editable="website-credit-url"><span data-editable="website-credit-text">Tristan Maratos</span></a></p>
+    <p class="site-footer__admin"><a href="admin.html"><span data-editable="staff-login-label">Staff login</span></a></p>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/cms-defaults.js"></script>
+<script src="js/supabase-config.js"></script>
 <script src="js/cms-core.js"></script>
-<script src="js/cms-render.js"></script>
-<script src="js/cms-public.js"></script>
+<script src="js/site-content.js"></script>
+<script src="js/contact-form.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

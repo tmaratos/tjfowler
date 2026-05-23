@@ -15,7 +15,7 @@
   <div id="login-view" class="admin-login">
     <h1>T.J. Fowler DDS</h1>
     <p>Sign in to edit website content.</p>
-    <div id="login-alert"></div>
+    <div id="login-alert" class="admin-alert" hidden></div>
     <form id="login-form">
       <div class="admin-field">
         <label for="login-email">Email</label>
@@ -25,71 +25,221 @@
         <label for="login-password">Password</label>
         <input id="login-password" type="password" required autocomplete="current-password" />
       </div>
-      <button type="submit" class="admin-btn admin-btn--primary" style="width:100%;margin-top:0.5rem">Sign In</button>
+      <button type="submit" class="admin-btn admin-btn--primary admin-btn--block">Sign In</button>
     </form>
-    <p style="margin-top:1.25rem;font-size:0.85rem;color:#5d6b75">
-      First time? Ask your web developer to run <code>supabase/schema.sql</code> and create your login in Supabase.
+    <p class="admin-login__links">
+      <button type="button" class="admin-link-btn" id="btn-show-forgot">Forgot password?</button>
     </p>
   </div>
 
-  <div id="app-view" class="admin-app">
+  <div id="forgot-view" class="admin-login" hidden>
+    <h1>Reset Password</h1>
+    <p>Enter your admin email. We will send a reset link.</p>
+    <div id="forgot-alert" class="admin-alert" hidden></div>
+    <form id="forgot-form">
+      <div class="admin-field">
+        <label for="forgot-email">Email</label>
+        <input id="forgot-email" type="email" required autocomplete="email" />
+      </div>
+      <button type="submit" class="admin-btn admin-btn--primary admin-btn--block">Send Reset Link</button>
+    </form>
+    <p class="admin-login__links">
+      <button type="button" class="admin-link-btn" id="btn-back-login-from-forgot">Back to sign in</button>
+    </p>
+  </div>
+
+  <div id="reset-view" class="admin-login" hidden>
+    <h1>Set New Password</h1>
+    <p>Choose a new password for your admin account.</p>
+    <div id="reset-alert" class="admin-alert" hidden></div>
+    <form id="reset-form">
+      <div class="admin-field">
+        <label for="reset-password">New password</label>
+        <input id="reset-password" type="password" required minlength="8" autocomplete="new-password" />
+      </div>
+      <div class="admin-field">
+        <label for="reset-password-confirm">Confirm password</label>
+        <input id="reset-password-confirm" type="password" required minlength="8" autocomplete="new-password" />
+      </div>
+      <button type="submit" class="admin-btn admin-btn--primary admin-btn--block">Update Password</button>
+    </form>
+  </div>
+
+  <div id="denied-view" class="admin-login" hidden>
+    <h1>Access Denied</h1>
+    <p>You are signed in, but this account is not authorized to edit the website.</p>
+    <div id="denied-alert" class="admin-alert admin-alert--error">Contact the site administrator to be added to <code>admin_users</code>.</div>
+    <button type="button" class="admin-btn admin-btn--ghost admin-btn--block" id="btn-denied-logout">Sign Out</button>
+  </div>
+
+  <div id="app-view" class="admin-app" hidden>
     <aside class="admin-sidebar">
       <h2>Site Editor</h2>
-      <nav class="admin-nav" id="page-nav"></nav>
+      <nav class="admin-nav" id="admin-nav">
+        <button type="button" class="admin-nav__item is-active" data-panel="settings">Site Settings</button>
+        <button type="button" class="admin-nav__item" data-panel="navigation">Navigation / Footer</button>
+        <button type="button" class="admin-nav__item" data-panel="pages">Page Sections</button>
+        <button type="button" class="admin-nav__item" data-panel="staff">Staff Members</button>
+        <button type="button" class="admin-nav__item" data-panel="services">Services</button>
+        <button type="button" class="admin-nav__item" data-panel="images">Site Images</button>
+        <button type="button" class="admin-nav__item" data-panel="trust">Trust Cards</button>
+        <button type="button" class="admin-nav__item" data-panel="cta">CTA Blocks</button>
+        <button type="button" class="admin-nav__item" data-panel="form-fields">Contact Form Fields</button>
+        <button type="button" class="admin-nav__item" data-panel="labels">UI Labels</button>
+        <button type="button" class="admin-nav__item" data-panel="submissions">Contact Submissions</button>
+      </nav>
       <div class="admin-sidebar-actions">
-        <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="btn-site-settings">Site Settings</button>
-        <button type="button" class="admin-btn admin-btn--secondary admin-btn--sm" id="btn-seed">Import Site Content</button>
         <a href="index.html" class="admin-btn admin-btn--ghost admin-btn--sm" target="_blank" rel="noopener">View Website</a>
         <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="btn-logout">Sign Out</button>
       </div>
     </aside>
 
     <div class="admin-main">
-      <div id="global-alert"></div>
+      <div id="global-alert" class="admin-alert" hidden></div>
 
-      <div id="page-editor">
-        <div class="admin-toolbar">
-          <h1 id="editor-title">Edit Page</h1>
-          <div class="admin-toolbar-actions">
-            <select id="add-section-type" class="admin-field" style="margin:0;width:auto">
-              <option value="">Add section…</option>
-            </select>
-            <button type="button" class="admin-btn admin-btn--secondary" id="btn-add-section">Add Section</button>
-            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-page">Save Page</button>
-          </div>
-        </div>
-
-        <div class="admin-panel">
-          <div class="admin-field">
-            <label for="page-title">Browser tab title</label>
-            <input id="page-title" type="text" />
-          </div>
-          <div class="admin-field">
-            <label for="page-meta">Meta description (SEO)</label>
-            <textarea id="page-meta" rows="2"></textarea>
-          </div>
-        </div>
-
-        <div id="sections-list"></div>
-      </div>
-
-      <div id="settings-editor" hidden>
+      <section id="panel-settings" class="admin-panel-view">
         <div class="admin-toolbar">
           <h1>Site Settings</h1>
+          <button type="button" class="admin-btn admin-btn--primary" id="btn-save-settings">Save Settings</button>
+        </div>
+        <form id="settings-form" class="admin-stack admin-panel">
+          <div class="admin-field"><label for="set-practice-name">Practice name</label><input id="set-practice-name" name="practice_name" type="text" /></div>
+          <div class="admin-field"><label for="set-tagline">Tagline</label><input id="set-tagline" name="tagline" type="text" /></div>
+          <div class="admin-grid-2">
+            <div class="admin-field"><label for="set-phone">Phone (digits)</label><input id="set-phone" name="phone" type="text" /></div>
+            <div class="admin-field"><label for="set-phone-display">Phone (display)</label><input id="set-phone-display" name="phone_display" type="text" /></div>
+          </div>
+          <div class="admin-grid-2">
+            <div class="admin-field"><label for="set-fax">Fax (digits)</label><input id="set-fax" name="fax" type="text" /></div>
+            <div class="admin-field"><label for="set-fax-display">Fax (display)</label><input id="set-fax-display" name="fax_display" type="text" /></div>
+          </div>
+          <div class="admin-field"><label for="set-email">Email</label><input id="set-email" name="email" type="email" /></div>
+          <div class="admin-field"><label for="set-address1">Address line 1</label><input id="set-address1" name="address_line1" type="text" /></div>
+          <div class="admin-field"><label for="set-address2">Address line 2</label><input id="set-address2" name="address_line2" type="text" /></div>
+          <div class="admin-field"><label for="set-footer">Footer copyright</label><input id="set-footer" name="footer_copyright" type="text" /></div>
+          <div class="admin-grid-2">
+            <div class="admin-field"><label for="set-credit-text">Website credit text</label><input id="set-credit-text" name="website_credit_text" type="text" /></div>
+            <div class="admin-field"><label for="set-credit-url">Website credit URL</label><input id="set-credit-url" name="website_credit_url" type="url" /></div>
+          </div>
+          <div class="admin-field">
+            <label for="set-contact-notice">Contact form notice</label>
+            <textarea id="set-contact-notice" name="contact_form_notice" rows="3"></textarea>
+          </div>
+          <div class="admin-field">
+            <label for="set-hours">Office hours (JSON: [{"day":"Monday","hours":"8:00 AM – 4:00 PM"}])</label>
+            <textarea id="set-hours" name="office_hours" rows="8"></textarea>
+          </div>
+        </form>
+      </section>
+
+      <section id="panel-navigation" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Navigation / Footer Links</h1>
           <div class="admin-toolbar-actions">
-            <button type="button" class="admin-btn admin-btn--ghost" id="btn-back-pages">Back to Pages</button>
-            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-settings">Save Settings</button>
+            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-navigation">Save Links</button>
           </div>
         </div>
-        <div class="admin-panel admin-settings-grid" id="settings-form"></div>
-      </div>
+        <p class="admin-help">Header menu uses location <code>header</code>; footer quick links use <code>footer</code>.</p>
+        <div id="navigation-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-pages" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Page Sections</h1>
+          <div class="admin-toolbar-actions">
+            <select id="page-slug-select" class="admin-select"></select>
+            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-sections">Save Page</button>
+          </div>
+        </div>
+        <p class="admin-help">Edit existing sections only. Text fields map to the live site; no custom HTML.</p>
+        <h2 class="admin-subhead">Structured sections</h2>
+        <div id="structured-sections-editor" class="admin-stack"></div>
+        <h2 class="admin-subhead">Text fields</h2>
+        <div id="sections-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-staff" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Staff Members</h1>
+          <button type="button" class="admin-btn admin-btn--secondary" id="btn-add-staff">Add Staff Member</button>
+        </div>
+        <div id="staff-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-services" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Services</h1>
+          <button type="button" class="admin-btn admin-btn--secondary" id="btn-add-service">Add Service</button>
+        </div>
+        <div id="services-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-images" class="admin-panel-view" hidden>
+        <div class="admin-toolbar"><h1>Site Images</h1></div>
+        <div class="admin-panel">
+          <h2 class="admin-subhead">Logo</h2>
+          <div id="logo-editor"></div>
+        </div>
+        <div class="admin-panel">
+          <h2 class="admin-subhead">Homepage slideshow</h2>
+          <p class="admin-help">JPG, JPEG, PNG, or WebP only. Bucket: <code>site-images</code>.</p>
+          <div id="slideshow-editor" class="admin-stack"></div>
+        </div>
+        <div class="admin-panel">
+          <h2 class="admin-subhead">Before &amp; after</h2>
+          <div id="showcase-editor" class="admin-grid-2"></div>
+        </div>
+      </section>
+
+      <section id="panel-trust" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Trust Cards</h1>
+          <div class="admin-toolbar-actions">
+            <button type="button" class="admin-btn admin-btn--primary" id="btn-save-trust">Save Trust Cards</button>
+          </div>
+        </div>
+        <div id="trust-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-cta" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>CTA Blocks</h1>
+          <button type="button" class="admin-btn admin-btn--primary" id="btn-save-cta">Save All CTAs</button>
+        </div>
+        <div id="cta-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-form-fields" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Contact Form Fields</h1>
+          <button type="button" class="admin-btn admin-btn--primary" id="btn-save-form-fields">Save Fields</button>
+        </div>
+        <div id="form-fields-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-labels" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>UI Labels</h1>
+          <button type="button" class="admin-btn admin-btn--primary" id="btn-save-labels">Save Labels</button>
+        </div>
+        <div id="labels-editor" class="admin-stack admin-panel"></div>
+      </section>
+
+      <section id="panel-submissions" class="admin-panel-view" hidden>
+        <div class="admin-toolbar">
+          <h1>Contact Submissions</h1>
+          <button type="button" class="admin-btn admin-btn--ghost" id="btn-refresh-submissions">Refresh</button>
+        </div>
+        <div id="submissions-list" class="admin-stack"></div>
+      </section>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
-  <script src="js/cms-defaults.js"></script>
   <script src="js/cms-core.js"></script>
+  <script src="js/cms-catalog.js"></script>
   <script src="admin.js"></script>
+  <script src="js/admin-panels.js"></script>
 </body>
 </html>

@@ -9,9 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="has-preview-watermark" data-page="services">
-
-<div class="preview-watermark" aria-hidden="true"><span class="preview-watermark__text">PREVIEW</span></div>
+<body data-page="services">
 
 <header class="site-header" data-section="site-header">
   <div class="topbar">
@@ -25,12 +23,12 @@
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
   </div>
   <nav class="nav" id="nav" aria-label="Main navigation">
-    <a href="index.html">Home</a>
-    <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
-    <a href="services.html" class="active">Services Offered</a>
-    <a href="staff.html">Meet Our Staff</a>
-    <a href="patient-resources.html">Dentistry &amp; You!!!</a>
-    <a href="contact.html">Contact</a>
+    <a href="index.html" data-nav="home" data-link-key="nav-home">Home</a>
+    <a href="meet-dr-fowler.html" data-nav="meet-dr-fowler" data-link-key="nav-meet-dr">Meet Dr. Fowler</a>
+    <a href="services.html" class="active" data-nav="services" data-link-key="nav-services">Services Offered</a>
+    <a href="staff.html" data-nav="staff" data-link-key="nav-staff">Meet Our Staff</a>
+    <a href="patient-resources.html" data-nav="patient-resources" data-link-key="nav-patient-resources">Dentistry &amp; You!!!</a>
+    <a href="contact.html" data-nav="contact" data-link-key="nav-contact">Contact</a>
   </nav>
 </header>
 
@@ -119,7 +117,7 @@
   </section>
 </main>
 
-<a class="mobile-call" href="tel:8656922222">Call Now</a>
+<a class="mobile-call" href="tel:8656922222" data-editable="mobile-call-label"><span data-editable="mobile-call-label">Call Now</span></a>
 
 <footer class="site-footer" data-section="site-footer">
   <div class="site-footer__inner">
@@ -129,32 +127,32 @@
       <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
     </div>
     <div>
-      <p class="site-footer__heading">Quick Links</p>
-      <nav class="site-footer__links" aria-label="Footer navigation">
-        <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
-        <a href="services.html">Services</a>
-        <a href="staff.html">Our Staff</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-    <div class="site-footer__hours">
-      <p class="site-footer__heading">Office Hours</p>
+      <p class="site-footer__heading" data-editable="footer-quick-links-heading">Quick Links</p>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="meet-dr-fowler.html" data-footer-link="meet-dr-fowler" data-link-key="nav-meet-dr">Meet Dr. Fowler</a>
+          <a href="services.html" data-footer-link="services" data-link-key="nav-services">Services</a>
+          <a href="staff.html" data-footer-link="staff" data-link-key="nav-staff">Our Staff</a>
+          <a href="contact.html" data-footer-link="contact" data-link-key="nav-contact">Contact</a>
+        </nav>
+      </div>
+      <div class="site-footer__hours" data-editable="footer-hours">
+        <p class="site-footer__heading" data-editable="footer-hours-heading">Office Hours</p>
       <p><strong>Mon:</strong> 8:00 AM &ndash; 4:00 PM</p>
       <p><strong>Tue&ndash;Thu:</strong> 8:30 AM &ndash; 5:00 PM</p>
       <p><strong>Fri:</strong> 8:00 AM &ndash; 4:00 PM</p>
     </div>
   </div>
   <div class="site-footer__bottom">
-    <p>&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
-    <p class="site-credit">Website by <a href="https://tristanmaratos.com">Tristan Maratos</a></p>
+    <p data-editable="footer-copyright">&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
+    <p class="site-credit">Website by <a href="https://tristanmaratos.com" data-editable="website-credit-url"><span data-editable="website-credit-text">Tristan Maratos</span></a></p>
+    <p class="site-footer__admin"><a href="admin.html"><span data-editable="staff-login-label">Staff login</span></a></p>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/cms-defaults.js"></script>
+<script src="js/supabase-config.js"></script>
 <script src="js/cms-core.js"></script>
-<script src="js/cms-render.js"></script>
-<script src="js/cms-public.js"></script>
+<script src="js/site-content.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

@@ -1,127 +1,88 @@
-# Supabase CMS Setup — T.J. Fowler DDS
+# Supabase setup — T.J. Fowler DDS
 
-This guide helps you connect the website to Supabase so Dr. Fowler can edit pages at **admin.html**.
+## Frontend config
 
-## 1. Create a Supabase project
+`js/supabase-config.js` holds the project URL and **publishable** key (gitignored locally). Copy from `js/supabase-config.example.js` if needed.
 
-1. Go to [https://supabase.com](https://supabase.com) and sign in.
-2. **New project** → choose a name and database password → create.
-3. Wait until the project is ready.
+Never commit or use the **secret** / `service_role` key in HTML or JS.
 
-## 2. Run the database schema
+## Auth & admin
 
-1. In Supabase: **SQL Editor** → **New query**.
-2. Open `supabase/schema.sql` from this project, copy all of it, paste into the editor.
-3. Click **Run**.
+1. Supabase → **Authentication** → Email provider enabled.
+2. Admin user must exist in **Auth** and in `admin_users`.
+3. **Redirect URLs** (Authentication → URL configuration) must include:
+   - `https://tmaratos.github.io/tjfowler/admin.html`
+   - `http://127.0.0.1:5500/admin.html`
+   - `http://localhost:5500/admin.html`
 
-You should see tables: `site_settings`, `pages`, `sections`.
+## Password reset
 
-## 3. Create Dr. Fowler’s login
+Admin → **Forgot password?** sends `resetPasswordForEmail` with the redirect above. After the email link, `admin.html` shows **Set New Password** and calls `updateUser({ password })`.
 
-1. Supabase → **Authentication** → **Users** → **Add user**.
-2. Enter email and password (Dr. Fowler will use these on admin.html).
-3. Confirm the user (disable “invite only” if email confirmation blocks login).
+## Storage
 
-Only people with a Supabase account can edit content. Do not share the password publicly.
+Public buckets: `staff-photos`, `site-images`. Run `supabase/storage_policies.sql`.
 
-## 4. Connect the website to Supabase
+Uploads: JPG, JPEG, PNG, WebP only.
 
-1. Supabase → **Project Settings** → **API**.
-2. Copy **Project URL** and **anon public** key.
-3. Copy `js/supabase-config.example.js` to `js/supabase-config.js`:
+## Schema files (run in order if tables missing)
 
-   ```bash
-   cp js/supabase-config.example.js js/supabase-config.js
-   ```
+1. `supabase/schema.sql` — base tables
+2. `supabase/schema_extensions.sql` — optional columns on existing tables
+3. `supabase/schema_content.sql` — `navigation_links`, `trust_cards`, `cta_blocks`, `contact_form_fields`, `ui_labels` + RLS
 
-4. Edit `js/supabase-config.js`:
+## Tables
 
-   ```javascript
-   window.SUPABASE_CONFIG = {
-     url: "https://YOUR_PROJECT_REF.supabase.co",
-     anonKey: "YOUR_ANON_PUBLIC_KEY",
-   };
-   ```
+| Table | Public read | Admin write |
+|-------|-------------|-------------|
+| `site_settings` | yes | yes |
+| `page_sections` | yes | yes |
+| `navigation_links` | active rows | yes |
+| `trust_cards` | active rows | yes |
+| `cta_blocks` | active rows | yes |
+| `contact_form_fields` | active rows | yes |
+| `ui_labels` | yes | yes |
+| `services` | active | yes |
+| `staff_members` | active | yes |
+| `site_images` | yes | yes |
+| `contact_submissions` | insert only (anon) | read + status update |
+| `admin_users` | own row | — |
 
-5. On **each public HTML page**, add this line **before** the other CMS scripts (see section 5).  
-   **admin.html** already includes `js/supabase-config.js`.
+## Public site scripts
 
-`js/supabase-config.js` is gitignored so keys are not committed to GitHub.
-
-## 5. Enable CMS on public pages
-
-Each page already includes CMS scripts. After `js/supabase-config.js` exists, the site loads content from Supabase.  
-Without that file, pages keep showing the built-in HTML (safe fallback).
-
-Script order on public pages:
+All 7 HTML pages load:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
-<script src="js/cms-defaults.js"></script>
 <script src="js/cms-core.js"></script>
-<script src="js/cms-render.js"></script>
-<script src="js/cms-public.js"></script>
+<script src="js/site-content.js"></script>
 <script src="script.js"></script>
 ```
 
-`<main>` must have `data-cms-page` with the page slug (already set on all pages).
+`contact.html` also loads `js/contact-form.js`.
 
-## 6. First-time content import
+Static HTML remains visible if Supabase is unavailable.
 
-1. Open **admin.html** in the browser (same folder as the site).
-2. Sign in with the Supabase user you created.
-3. Click **Import Site Content** in the sidebar.  
-   This loads all current page text and sections from `js/cms-defaults.js` into the database.
-4. Edit pages, then click **Save Page** on each page you change.
-5. Use **Site Settings** for phone, address, and office hours (header/footer).
+## Admin panels (11)
 
-## 7. Optional: image uploads
+| Panel | Table(s) |
+|-------|----------|
+| Site Settings | `site_settings` |
+| Nav & Footer | `navigation_links` (`link_key` matches `data-link-key` in HTML) |
+| Page Sections | `page_sections` |
+| Services | `services` |
+| Staff | `staff_members` + `staff-photos` storage |
+| Images | `site_images` + `site-images` storage |
+| Trust Cards | `trust_cards` (`card_key` matches `data-trust-card` on home) |
+| CTA Blocks | `cta_blocks` (`section_key` + `page_slug`, button_* columns) |
+| Form Fields | `contact_form_fields` |
+| UI Labels | `ui_labels` |
+| Contact Messages | `contact_submissions` |
 
-For now, images use paths like `assets/slide0.jpg`. In the admin, edit image paths in section fields.
+## Verify
 
-To use Supabase Storage later:
-
-1. **Storage** → **New bucket** → name `media` → **Public**.
-2. Add storage policies for authenticated uploads (ask your developer).
-
-## 8. Using the admin (Dr. Fowler)
-
-| Action | How |
-|--------|-----|
-| Sign in | Open `admin.html`, email + password |
-| Edit a page | Click page name in sidebar |
-| Edit text | Change fields in each section block |
-| Hide a section | Uncheck **Visible** |
-| Reorder | **↑** / **↓** buttons |
-| Add section | Choose type → **Add Section** → edit → **Save Page** |
-| Delete section | **Delete** → **Save Page** |
-| Global phone/hours | **Site Settings** → **Save Settings** |
-| Preview | **View Website** opens the live site |
-
-**Important:** Click **Save Page** after edits or they will not appear on the public site.
-
-## 9. Security notes
-
-- The **anon** key is safe in the browser; Row Level Security limits writes to signed-in users.
-- Do not put the **service_role** key in the website or admin.html.
-- Keep `admin.html` unlinked from the public menu if you prefer (bookmark it only).
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| “Supabase is not configured” | Create `js/supabase-config.js` from the example file |
-| Login fails | Check user exists in Authentication → Users |
-| Site still shows old HTML | Run **Import Site Content**, save pages, hard-refresh browser (Ctrl+F5) |
-| Push rejected on Git | `git pull origin main` then push again |
-| Slideshow stops | Ensure `script.js` loads after `cms-public.js` |
-
-## Files reference
-
-| File | Purpose |
-|------|---------|
-| `admin.html` / `admin.js` | Content editor |
-| `js/cms-public.js` | Loads CMS data on public pages |
-| `js/cms-defaults.js` | Default content + seed source |
-| `supabase/schema.sql` | Database tables and security |
+- Public pages work with static fallback when offline
+- `admin.html` login for `admin_users` only; others see **Access Denied**
+- Staff photo initials fallback; slideshow and mobile nav work
+- Contact form inserts to `contact_submissions`

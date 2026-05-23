@@ -18,17 +18,27 @@ document.querySelectorAll(".nav a").forEach((link) => {
   });
 });
 
-function initHeroSlider() {
+let heroSliderTimer = null;
+
+function initHeroSlider(force) {
   const slider = document.querySelector(".hero-slider");
   if (!slider) return;
+
+  if (force) {
+    delete slider.dataset.sliderInit;
+    if (heroSliderTimer) {
+      clearInterval(heroSliderTimer);
+      heroSliderTimer = null;
+    }
+  }
+
+  if (slider.dataset.sliderInit === "1") return;
+  slider.dataset.sliderInit = "1";
 
   const slides = slider.querySelectorAll(".slide");
   const prevSlide = slider.querySelector(".prev-slide");
   const nextSlide = slider.querySelector(".next-slide");
   if (!slides.length) return;
-
-  if (slider.dataset.sliderInit === "1") return;
-  slider.dataset.sliderInit = "1";
 
   let currentSlide = 0;
 
@@ -39,15 +49,15 @@ function initHeroSlider() {
   }
 
   if (prevSlide) {
-    prevSlide.addEventListener("click", () => showSlide(currentSlide - 1));
+    prevSlide.onclick = () => showSlide(currentSlide - 1);
   }
 
   if (nextSlide) {
-    nextSlide.addEventListener("click", () => showSlide(currentSlide + 1));
+    nextSlide.onclick = () => showSlide(currentSlide + 1);
   }
 
   if (slides.length > 1) {
-    setInterval(() => showSlide(currentSlide + 1), 5000);
+    heroSliderTimer = setInterval(() => showSlide(currentSlide + 1), 5000);
   }
 
   showSlide(0);
@@ -55,29 +65,33 @@ function initHeroSlider() {
 
 window.initHeroSlider = initHeroSlider;
 
-const cmsMain = document.querySelector("main[data-cms-page]");
-if (!cmsMain) {
-  initHeroSlider();
-}
+function initStaffPhotoFallback() {
+  document.querySelectorAll(".staff-card__media").forEach((media) => {
+    const img = media.querySelector(".staff-card__photo");
+    if (!img) return;
 
-document.querySelectorAll(".staff-card__media").forEach((media) => {
-  const img = media.querySelector(".staff-card__photo");
-  if (!img) return;
+    const sync = () => {
+      const src = (img.getAttribute("src") || "").trim();
+      const loaded =
+        src && img.complete && img.naturalWidth > 0 && !img.dataset.fallback;
+      media.classList.toggle("staff-card__media--has-photo", loaded);
+      media.classList.toggle("staff-card__media--no-photo", !loaded);
+    };
 
-  const sync = () => {
-    const src = (img.getAttribute("src") || "").trim();
-    const loaded =
-      src && img.complete && img.naturalWidth > 0 && !img.dataset.fallback;
-    media.classList.toggle("staff-card__media--has-photo", loaded);
-    media.classList.toggle("staff-card__media--no-photo", !loaded);
-  };
+    img.onload = sync;
+    img.onerror = () => {
+      img.dataset.fallback = "1";
+      img.removeAttribute("src");
+      sync();
+    };
 
-  img.addEventListener("load", sync);
-  img.addEventListener("error", () => {
-    img.dataset.fallback = "1";
-    img.removeAttribute("src");
     sync();
   });
+}
 
-  sync();
+window.initStaffPhotoFallback = initStaffPhotoFallback;
+
+document.addEventListener("DOMContentLoaded", () => {
+  initHeroSlider();
+  initStaffPhotoFallback();
 });

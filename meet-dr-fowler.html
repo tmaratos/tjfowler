@@ -4,16 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-editable="page-title">Meet Dr. Fowler | T.J. Fowler DDS</title>
+  <meta name="description" data-editable="meta-description" content="Meet Dr. T.J. Fowler, Knoxville restorative and cosmetic dentist." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="has-preview-watermark" data-page="meet-dr-fowler">
-
-<div class="preview-watermark" aria-hidden="true"><span class="preview-watermark__text">PREVIEW</span>
-</div>
+<body data-page="meet-dr-fowler">
 
 <header class="site-header" data-section="site-header">
 
@@ -57,12 +55,12 @@
     aria-label="Main navigation"
   >
 
-    <a href="index.html">Home</a>
-    <a href="meet-dr-fowler.html" class="active">Meet Dr. Fowler</a>
-    <a href="services.html">Services Offered</a>
-    <a href="staff.html">Meet Our Staff</a>
-    <a href="patient-resources.html">Dentistry & You!!!</a>
-    <a href="contact.html">Contact</a>
+    <a href="index.html" data-nav="home" data-link-key="nav-home">Home</a>
+    <a href="meet-dr-fowler.html" class="active" data-nav="meet-dr-fowler" data-link-key="nav-meet-dr">Meet Dr. Fowler</a>
+    <a href="services.html" data-nav="services" data-link-key="nav-services">Services Offered</a>
+    <a href="staff.html" data-nav="staff" data-link-key="nav-staff">Meet Our Staff</a>
+    <a href="patient-resources.html" data-nav="patient-resources" data-link-key="nav-patient-resources">Dentistry & You!!!</a>
+    <a href="contact.html" data-nav="contact" data-link-key="nav-contact">Contact</a>
 
   </nav>
 
@@ -89,28 +87,28 @@
 
       <h2 data-editable="bio-title">Knoxville Roots. Professional Dental Care.</h2>
 
-      <p>
+      <p data-editable="bio-para-1">
         Dr. Fowler was born and raised in Knoxville, Tennessee,
         and his family has long been part of the local community.
       </p>
 
-      <p>
+      <p data-editable="bio-para-2">
         He attended Knoxville Catholic High School before earning
         a Bachelor of Science degree in Microbiology from the
         University of Tennessee, Knoxville.
       </p>
 
-      <p>
+      <p data-editable="bio-para-3">
         He later attended the University of Tennessee College of Dentistry
         in Memphis where he received his Doctor of Dental Surgery degree.
       </p>
 
-      <p>
+      <p data-editable="bio-para-4">
         After dental school, Dr. Fowler completed a General Practice Residency
         through the University of Tennessee Graduate School of Medicine at UT Hospital.
       </p>
 
-      <p>
+      <p data-editable="bio-para-5">
         Following residency, he practiced in Oak Ridge before opening
         his Knoxville office in December 2007.
       </p>
@@ -121,21 +119,21 @@
 
       <div class="office-hours-card">
 
-        <h3>Office Information</h3>
+        <h3 data-editable="sidebar-title">Office Information</h3>
 
-        <p>
+        <p data-editable="sidebar-para-1">
           Restorative and cosmetic dental solutions in West Knoxville.
         </p>
 
-        <p>
+        <p data-editable="sidebar-para-2">
           Tuesday through Friday appointments available.
         </p>
 
-        <p>
+        <p data-editable="sidebar-para-3">
           Emergency appointments available when possible.
         </p>
 
-        <a class="btn primary" href="contact.html">
+        <a class="btn primary" href="contact.html" data-editable="sidebar-cta-label" data-field-href="sidebar-cta-url">
           Schedule Appointment
         </a>
 
@@ -147,7 +145,7 @@
 
 </main>
 
-<a class="mobile-call" href="tel:8656922222">
+<a class="mobile-call" href="tel:8656922222" data-editable="mobile-call-label">
   Call Now
 </a>
 
@@ -159,31 +157,31 @@
       <p><a href="tel:8656922222" data-editable="phone">865.692.2222</a></p>
     </div>
     <div>
-      <p class="site-footer__heading">Quick Links</p>
-      <nav class="site-footer__links" aria-label="Footer navigation">
-        <a href="meet-dr-fowler.html">Meet Dr. Fowler</a>
-        <a href="services.html">Services</a>
-        <a href="staff.html">Our Staff</a>
-        <a href="contact.html">Contact</a>
+      <p class="site-footer__heading" data-editable="footer-quick-links-heading">Quick Links</p>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+        <a href="meet-dr-fowler.html" data-footer-link="meet-dr-fowler" data-link-key="nav-meet-dr">Meet Dr. Fowler</a>
+        <a href="services.html" data-footer-link="services" data-link-key="nav-services">Services</a>
+        <a href="staff.html" data-footer-link="staff" data-link-key="nav-staff">Our Staff</a>
+        <a href="contact.html" data-footer-link="contact" data-link-key="nav-contact">Contact</a>
       </nav>
     </div>
-    <div class="site-footer__hours">
-      <p class="site-footer__heading">Office Hours</p>
+    <div class="site-footer__hours" data-editable="footer-hours">
+      <p class="site-footer__heading" data-editable="footer-hours-heading">Office Hours</p>
       <p><strong>Mon:</strong> 8:00 AM &ndash; 4:00 PM</p>
       <p><strong>Tue&ndash;Thu:</strong> 8:30 AM &ndash; 5:00 PM</p>
       <p><strong>Fri:</strong> 8:00 AM &ndash; 4:00 PM</p>
     </div>
   </div>
   <div class="site-footer__bottom">
-    <p>&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
-    <p class="site-credit">Website by <a href="https://tristanmaratos.com">Tristan Maratos</a></p>
+    <p data-editable="footer-copyright">&copy; 2026 T.J. Fowler DDS. All rights reserved.</p>
+    <p class="site-credit">Website by <a href="https://tristanmaratos.com" data-editable="website-credit-url"><span data-editable="website-credit-text">Tristan Maratos</span></a></p>
+    <p class="site-footer__admin"><a href="admin.html"><span data-editable="staff-login-label">Staff login</span></a></p>
   </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/cms-defaults.js"></script>
+<script src="js/supabase-config.js"></script>
 <script src="js/cms-core.js"></script>
-<script src="js/cms-render.js"></script>
-<script src="js/cms-public.js"></script>
+<script src="js/site-content.js"></script>
 <script src="script.js"></script>
 
 </body>
