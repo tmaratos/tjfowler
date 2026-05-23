@@ -4,7 +4,9 @@
 (function () {
   const Cat = window.CmsCatalog || {};
   const L = window.AdminLabels || {};
-  const Panels = window.AdminPanels || {};
+  function getPanels() {
+    return window.AdminPanels || {};
+  }
   const { SLIDE_KEYS, CTA_BLOCK_KEYS, CONTACT_FIELD_KEYS, UI_LABEL_KEYS, NAV_LINK_KEYS, FOOTER_LINK_KEYS } = Cat;
 
   const loginView = document.getElementById("login-view");
@@ -271,7 +273,42 @@
   }
 
   function readCardFields(card) {
-    return Panels.readCard ? Panels.readCard(card) : {};
+    const read = getPanels().readCard;
+    if (read) return read(card);
+    const out = {};
+    if (!card) return out;
+    card.querySelectorAll("[data-f]").forEach((el) => {
+      const k = el.getAttribute("data-f");
+      if (!k || k === "photo_file") return;
+      if (el.type === "checkbox") out[k] = el.checked;
+      else if (el.type === "number") out[k] = Number(el.value);
+      else if (el.type === "hidden" || el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT") {
+        out[k] = el.value;
+      }
+    });
+    return out;
+  }
+
+  function isPendingStaffId(id) {
+    return String(id || "").startsWith("pending-");
+  }
+
+  async function uniqueStaffSlug(baseSlug) {
+    let slug = baseSlug || "staff";
+    const { data: existing } = await sb.from("staff_members").select("slug").eq("slug", slug).maybeSingle();
+    if (!existing) return slug;
+    return `${slug}-${Date.now().toString(36).slice(-5)}`;
+  }
+
+  function readStaffCardFields(card) {
+    return {
+      name: (card.querySelector('[data-f="name"]')?.value ?? "").trim(),
+      bio: (card.querySelector('[data-f="bio"]')?.value ?? "").trim(),
+      initials: (card.querySelector('[data-f="initials"]')?.value ?? "").trim(),
+      slug: (card.querySelector('[data-f="slug"]')?.value ?? "").trim(),
+      sort_order: Number(card.querySelector('[data-f="sort_order"]')?.value ?? 0),
+      is_active: card.querySelector('[data-f="is_active"]')?.checked !== false,
+    };
   }
 
   async function loadPageSections(slug) {
@@ -394,7 +431,7 @@
       : '<div class="admin-photo-placeholder" aria-hidden="true">No photo</div>';
     const active = row?.is_active !== false;
     return `<div class="admin-panel admin-card" data-image-key="${escapeAttr(key)}" data-sort-order="${sortOrder}">
-      <div class="admin-card__head"><strong>${escapeHtml(label)}</strong>${Panels.activeToggle ? Panels.activeToggle(active) : ""}</div>
+      <div class="admin-card__head"><strong>${escapeHtml(label)}</strong>${getPanels().activeToggle ? getPanels().activeToggle(active) : ""}</div>
       <div class="admin-photo-wrap">${preview}</div>
       <div class="admin-field"><label>Description for screen readers</label><input type="text" data-f="alt_text" value="${escapeAttr(row?.alt_text || "")}" /></div>
       <input type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" data-f="image_file" hidden />
@@ -420,10 +457,10 @@
           body += sec.fieldKeys.map((k) => renderFieldInput(k, fieldValue(slug, k))).join("");
         }
         if (sec.ctaBlock) {
-          body += Panels.renderCtaBlock(sec.ctaBlock, findCta(sec.ctaBlock));
+          body += getPanels().renderCtaBlock(sec.ctaBlock, findCta(sec.ctaBlock));
         }
         if (sec.type === "trust") {
-          body += `<div id="homepage-trust-editor" class="admin-stack">${Panels.renderTrust("", trustCache)}</div>`;
+          body += `<div id="homepage-trust-editor" class="admin-stack">${getPanels().renderTrust("", trustCache)}</div>`;
         }
         if (sec.type === "slideshow") {
           body += `<div id="slideshow-editor" class="admin-stack"></div>`;
@@ -438,7 +475,7 @@
       .join("");
 
     const trustHost = wrap.querySelector("#homepage-trust-editor");
-    if (trustHost) trustHost.innerHTML = Panels.renderTrust(null, trustCache);
+    if (trustHost) trustHost.innerHTML = getPanels().renderTrust(null, trustCache);
 
     const slideHost = wrap.querySelector("#slideshow-editor");
     if (slideHost) {
@@ -470,7 +507,7 @@
     const { data, error } = await sb.from("navigation_links").select("*").order("sort_order");
     if (error) throw error;
     navCache = data || [];
-    Panels.renderNavigation($("navigation-editor"), navCache);
+    getPanels().renderNavigation($("navigation-editor"), navCache);
   }
 
   async function loadTrustCards() {
@@ -489,14 +526,14 @@
     const { data, error } = await sb.from("contact_form_fields").select("*").order("sort_order");
     if (error) throw error;
     formFieldsCache = data || [];
-    Panels.renderFormFields($("form-fields-editor"), formFieldsCache);
+    getPanels().renderFormFields($("form-fields-editor"), formFieldsCache);
   }
 
   async function loadUiLabels() {
     const { data, error } = await sb.from("ui_labels").select("*");
     if (error) throw error;
     labelsCache = data || [];
-    Panels.renderContactLabels($("contact-form-labels-editor"), labelsCache);
+    getPanels().renderContactLabels($("contact-form-labels-editor"), labelsCache);
   }
 
   async function loadServices() {
@@ -551,12 +588,13 @@
     if (!editor) return;
     editor.innerHTML = staffCache
       .map(
-        (m, i) => `<div class="admin-panel admin-card" data-staff-id="${m.id}">
-          <input type="hidden" data-f="slug" value="${escapeAttr(m.slug)}" />
+        (m, i) => `<div class="admin-panel admin-card" data-staff-id="${escapeAttr(m.id)}"${m._isNew ? ' data-staff-new="1"' : ""}>
+          <input type="hidden" data-f="slug" value="${escapeAttr(m.slug || "")}" />
           <input type="hidden" data-f="sort_order" value="${m.sort_order}" />
+          ${m._isNew ? '<p class="admin-help">New staff member — enter a name and click Save Changes. Not shown on the website until you save and turn on Show on Website.</p>' : ""}
           <div class="admin-photo-wrap">${m.photo_url ? `<img src="${escapeAttr(m.photo_url)}" alt="" class="admin-thumb" />` : staffPlaceholder(m)}</div>
           <div class="admin-grid-2">
-            <div class="admin-field"><label>Name</label><input type="text" data-f="name" value="${escapeAttr(m.name)}" /></div>
+            <div class="admin-field"><label>Name</label><input type="text" data-f="name" value="${escapeAttr(m.name || "")}" placeholder="New Staff Member" required /></div>
             <div class="admin-field"><label>Initials (if no photo)</label><input type="text" data-f="initials" value="${escapeAttr(m.initials || "")}" maxlength="3" /></div>
           </div>
           <div class="admin-field"><label>Bio</label><textarea data-f="bio" rows="4">${escapeHtml(m.bio)}</textarea></div>
@@ -1237,10 +1275,30 @@
     }
     if (e.target.matches("[data-action='save-staff']")) {
       try {
-        const raw = readCardFields(card);
-        const name = raw.name?.trim() || "Staff Member";
-        const slug = raw.slug || slugify(name);
-        const payload = { ...raw, name, slug, updated_at: new Date().toISOString() };
+        const fields = readStaffCardFields(card);
+        if (!fields.name) {
+          showGlobal("Please enter a staff name before saving.", "error");
+          return;
+        }
+
+        const isNew = isPendingStaffId(id) || card.hasAttribute("data-staff-new");
+        let slug = fields.slug;
+        if (isNew) {
+          slug = await uniqueStaffSlug(slugify(fields.name));
+        } else if (!slug) {
+          slug = slugify(fields.name);
+        }
+
+        const payload = {
+          name: fields.name,
+          bio: fields.bio,
+          initials: fields.initials || null,
+          slug,
+          sort_order: fields.sort_order,
+          is_active: fields.is_active,
+          updated_at: new Date().toISOString(),
+        };
+
         const file = card.querySelector('[data-f="photo_file"]')?.files?.[0];
         if (file) {
           const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
@@ -1248,13 +1306,30 @@
           const { error: upErr } = await sb.storage.from("staff-photos").upload(path, file, { upsert: true, contentType: file.type });
           if (upErr) throw upErr;
           payload.photo_url = sb.storage.from("staff-photos").getPublicUrl(path).data.publicUrl;
+        } else {
+          const cached = staffCache.find((m) => m.id === id);
+          if (cached?.photo_url) payload.photo_url = cached.photo_url;
         }
-        delete payload.photo_file;
-        const { error } = await sb.from("staff_members").update(payload).eq("id", id);
-        if (error) throw error;
+
+        console.log("Saving staff payload:", payload);
+
+        let result;
+        if (isNew) {
+          result = await sb.from("staff_members").insert(payload).select().single();
+        } else {
+          result = await sb.from("staff_members").update(payload).eq("id", id).select().single();
+        }
+
+        if (result.error) {
+          console.error("Staff save error:", result.error);
+          throw result.error;
+        }
+        console.log("Staff save result:", result.data);
+
         showGlobal(L.MESSAGES.saved, "success");
         await loadStaff();
       } catch (err) {
+        console.error("Staff save failed:", err);
         showGlobal(err.message || L.MESSAGES.saveFailed, "error");
       }
     }
@@ -1269,18 +1344,24 @@
     }
   });
 
-  $("btn-add-staff")?.addEventListener("click", async () => {
-    const name = prompt(L.MESSAGES.addStaffName);
-    if (!name) return;
-    const { error } = await sb.from("staff_members").insert({
-      slug: slugify(name),
-      name,
+  $("btn-add-staff")?.addEventListener("click", () => {
+    staffCache.push({
+      id: `pending-${Date.now()}`,
+      _isNew: true,
+      name: "",
       bio: "",
+      initials: "",
+      slug: "",
+      photo_url: null,
       sort_order: staffCache.length,
-      is_active: true,
+      is_active: false,
     });
-    if (error) showGlobal(error.message, "error");
-    else await loadStaff();
+    renderStaffEditor();
+    const editor = $("staff-editor");
+    const last = editor?.querySelector("[data-staff-new]:last-of-type");
+    last?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    const nameInput = last?.querySelector('[data-f="name"]');
+    if (nameInput) nameInput.focus();
   });
 
   $("submissions-list")?.addEventListener("click", async (e) => {
