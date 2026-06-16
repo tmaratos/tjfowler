@@ -1,0 +1,20 @@
+{
+  "name": "tjfowler-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "T.J. Fowler DDS marketing website — Cloudflare Pages + D1 CMS",
+  "scripts": {
+    "dev": "wrangler d1 migrations apply tj-fowler-cms --local && wrangler pages dev . --port 8788",
+    "build": "node -e \"console.log('Static site — no build step required')\"",
+    "cf:dev": "wrangler d1 migrations apply tj-fowler-cms --local && wrangler pages dev . --port 8788",
+    "preview": "wrangler pages dev .",
+    "deploy": "wrangler pages deploy .",
+    "db:migrate:local": "wrangler d1 migrations apply tj-fowler-cms --local",
+    "db:migrate:prod": "wrangler d1 migrations apply tj-fowler-cms --remote",
+    "db:seed:local": "wrangler d1 execute tj-fowler-cms --local --file=./migrations/0002_seed.sql",
+    "db:seed:prod": "wrangler d1 execute tj-fowler-cms --remote --file=./migrations/0002_seed.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.14.0"
+  }
+}

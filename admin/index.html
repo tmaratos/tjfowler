@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Editor | T.J. Fowler DDS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/admin.css" />
+</head>
+<body class="admin-body">
+
+  <div id="auth-gate" class="admin-login">
+    <h1>T.J. Fowler DDS</h1>
+    <p id="auth-gate-desc">Sign in to update your practice website.</p>
+    <div id="auth-alert" class="admin-alert" hidden></div>
+    <div id="auth-token-form" hidden>
+      <div class="admin-field">
+        <label for="admin-token">Admin access token (local development only)</label>
+        <input id="admin-token" type="password" autocomplete="off" />
+      </div>
+      <button type="button" class="admin-btn admin-btn--primary admin-btn--block" id="btn-save-token">Continue</button>
+      <p class="admin-help">On the live site, Cloudflare Access protects this page automatically.</p>
+    </div>
+  </div>
+
+  <div id="app-view" class="admin-app" hidden>
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <h2>Website Editor</h2>
+      <nav class="admin-nav">
+        <button type="button" class="admin-nav__item is-active" data-panel="staff-page">Staff Page</button>
+        <button type="button" class="admin-nav__item" data-panel="staff-members">Staff Members</button>
+        <button type="button" class="admin-nav__item" data-panel="basics">Website Basics</button>
+      </nav>
+      <div class="admin-sidebar-actions">
+        <a href="/staff.html" class="admin-btn admin-btn--ghost admin-btn--sm" target="_blank" rel="noopener">View Staff Page</a>
+        <a href="/index.html" class="admin-btn admin-btn--ghost admin-btn--sm" target="_blank" rel="noopener">View Website</a>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+      <div id="global-alert" class="admin-alert" hidden></div>
+
+      <section id="panel-staff-page" class="admin-panel-view">
+        <header class="admin-page-header">
+          <h1>Staff Page Intro</h1>
+          <p class="admin-page-desc">Edit the heading and introduction at the top of the Meet Our Staff page.</p>
+        </header>
+        <form id="staff-page-form" class="admin-panel admin-stack">
+          <div class="admin-field"><label for="sp-eyebrow">Small top line</label><input id="sp-eyebrow" type="text" /></div>
+          <div class="admin-field"><label for="sp-title">Page heading</label><input id="sp-title" type="text" /></div>
+          <div class="admin-field"><label for="sp-subtitle">Intro text</label><textarea id="sp-subtitle" rows="3"></textarea></div>
+          <button type="submit" class="admin-btn admin-btn--primary">Save Changes</button>
+        </form>
+      </section>
+
+      <section id="panel-staff-members" class="admin-panel-view" hidden>
+        <header class="admin-page-header">
+          <h1>Staff Members</h1>
+          <p class="admin-page-desc">Add, edit, reorder, or hide team members shown on the staff page.</p>
+        </header>
+        <button type="button" class="admin-btn admin-btn--secondary" id="btn-add-staff">Add Staff Member</button>
+        <div id="staff-editor" class="admin-stack"></div>
+      </section>
+
+      <section id="panel-basics" class="admin-panel-view" hidden>
+        <header class="admin-page-header">
+          <h1>Website Basics</h1>
+          <p class="admin-page-desc">Practice name, phone, address, office hours, appointments section, and footer credit.</p>
+        </header>
+        <form id="basics-form" class="admin-panel admin-stack">
+          <div class="admin-field"><label for="set-practice-name">Practice name</label><input id="set-practice-name" type="text" /></div>
+          <div class="admin-grid-2">
+            <div class="admin-field"><label for="set-phone">Phone (digits)</label><input id="set-phone" type="text" /></div>
+            <div class="admin-field"><label for="set-phone-display">Phone (display)</label><input id="set-phone-display" type="text" /></div>
+          </div>
+          <div class="admin-field"><label for="set-address1">Street address</label><input id="set-address1" type="text" /></div>
+          <div class="admin-field"><label for="set-address2">City / State / ZIP</label><input id="set-address2" type="text" /></div>
+          <div class="admin-field"><label for="set-hours">Office hours (one line per day, format: Mon|8:00 AM – 4:00 PM)</label><textarea id="set-hours" rows="5"></textarea></div>
+          <hr class="admin-divider" />
+          <p class="admin-subhead">Appointments section (staff page)</p>
+          <div class="admin-field"><label for="set-appt-eyebrow">Small top line</label><input id="set-appt-eyebrow" type="text" /></div>
+          <div class="admin-field"><label for="set-appt-title">Heading</label><input id="set-appt-title" type="text" /></div>
+          <div class="admin-field"><label for="set-appt-text">Paragraph</label><textarea id="set-appt-text" rows="2"></textarea></div>
+          <div class="admin-grid-2">
+            <div class="admin-field"><label for="set-appt-call">Call button text</label><input id="set-appt-call" type="text" /></div>
+            <div class="admin-field"><label for="set-appt-contact">Contact button text</label><input id="set-appt-contact" type="text" /></div>
+          </div>
+          <hr class="admin-divider" />
+          <div class="admin-field"><label for="set-footer">Footer copyright</label><input id="set-footer" type="text" /></div>
+          <div class="admin-grid-2">
+            <div class="admin-field"><label for="set-credit-text">Website credit text</label><input id="set-credit-text" type="text" /></div>
+            <div class="admin-field"><label for="set-credit-url">Website credit link</label><input id="set-credit-url" type="url" /></div>
+          </div>
+          <button type="submit" class="admin-btn admin-btn--primary">Save Changes</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

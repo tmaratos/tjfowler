@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 js/supabase-config.js
+=======
+node_modules/
+.wrangler/
+.dev.vars
+.DS_Store
+>>>>>>> 3fc5d7d (Migrate CMS from Supabase to Cloudflare D1)
